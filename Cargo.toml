@@ -1,0 +1,6 @@
+[workspace]
+members = [
+	"elements",
+	"messages",
+	"main",
+]
