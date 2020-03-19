@@ -1,2 +1,2 @@
-# upf-rust
-upf rewrite with rust
+# rust-pfcp
+pfcp messages write with rust
