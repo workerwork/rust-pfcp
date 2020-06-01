@@ -1,9 +1,9 @@
-use elements::ie_type::IEType;
+//use elements::ie_type::IEType;
 use messages::*;
 
 fn main() {
     let s = 3;
-    let mut h = Header::new();
+    let mut h = header::Header::new();
     h.version = 2;
     h.seid = 100;
     //h.set_mp(true).set_s(true);
