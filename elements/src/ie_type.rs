@@ -1,4 +1,5 @@
-//定义信元枚举
+//define element type
+
 #[derive(Debug)]
 pub enum IEType {
     //Grouped IE, extendable

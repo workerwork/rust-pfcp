@@ -1,8 +1,9 @@
 pub mod msg_type;
-use elements::*;
+pub mod association_setup_request;
+
 
 pub enum Message {
-    ASR(AssociationSetupRequest),
+    ASR(association_setup_request::AssociationSetupRequest),
     AUR(AssociationUpdateRequest),
     ARR(AssociationReleaseRequest),
     //NodeReportResponse,
@@ -11,12 +12,6 @@ pub enum Message {
     SDR(SessionDeletionRequest),
 }
 
-pub struct AssociationSetupRequest {
-    pub header: Header,
-    pub node_id: NodeID,
-    pub recovery_time_stamp: RecoveryTimeStamp,
-    pub cause: Cause,
-}
 
 pub struct AssociationUpdateRequest {}
 

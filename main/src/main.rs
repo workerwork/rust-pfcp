@@ -20,9 +20,5 @@ fn main() {
     //println!("{:?}", s);
     println!("Hello, world!");
 
-    let msg = Message::ASR(
-        AssociationSetupRequest {
-            header: h,
-        }
-    );
+    let msg = Message::ASR(association_setup_request::AssociationSetupRequest { header: h });
 }

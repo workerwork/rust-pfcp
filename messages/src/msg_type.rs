@@ -1,4 +1,4 @@
-//定义消息类型
+//define message type
 pub enum MsgType {
     HeartbeatRequest = 1,
     HeartbeatResponse = 2,
@@ -24,3 +24,5 @@ pub enum MsgType {
     SessionReportRequest = 56,
     SessionReportResponse = 57,
 }
+
+
