@@ -13,7 +13,10 @@ fn main() {
         let (amt, src) = socket.recv_from(&mut buf).unwrap();
         println!("received {} bytes from: {:?}", amt, src);
         println!("{:?}", &buf[..amt]);
-        println!("{:#?}", header::Header::parse(&buf[..amt]));
+        //println!("{:#?}", header::Header::parse(&buf[..amt]));
+        let mut header = header::Header::new();
+        println!("{:?}", parse_header(&buf[..amt], &mut header));
+        println!("{:#?}", header);
         //let mut rdr = Cursor::new(&buf);
         //assert_eq!(517, rdr.read_u8::<BigEndian>().unwrap());
     }

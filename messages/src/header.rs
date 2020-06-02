@@ -11,6 +11,12 @@ pub struct Header {
 }
 
 impl Header {
+    pub fn new() -> Header {
+        Header {
+            ..Default::default()
+        }
+    }
+
     pub fn set_version(mut self, version: u8) -> Self {
         self.version = version;
         self
