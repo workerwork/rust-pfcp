@@ -26,7 +26,7 @@ impl Header {
         self
     }
 
-    pub fn parse(buf: Vec<u8>) -> Header {
+    pub fn parse(buf: &[u8]) -> Header {
         let mut header = Header {
             ..Default::default()
         };

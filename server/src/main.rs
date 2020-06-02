@@ -6,13 +6,14 @@ use std::net::UdpSocket;
 
 fn main() {
     let socket = UdpSocket::bind("0.0.0.0:8888").unwrap();
-    let mut buf = vec![0u8; 65535];
+    //let mut buf = vec![0u8; 65535];
+    let mut buf = [0u8; 65535];
     //let mut buf = Vec::new();
     loop {
         let (amt, src) = socket.recv_from(&mut buf).unwrap();
         println!("received {} bytes from: {:?}", amt, src);
-        println!("{:?}", &buf[0..amt]);
-        println!("{:#?}", header::Header::parse(buf[0..amt].to_vec()));
+        println!("{:?}", &buf[..amt]);
+        println!("{:#?}", header::Header::parse(&buf[..amt]));
         //let mut rdr = Cursor::new(&buf);
         //assert_eq!(517, rdr.read_u8::<BigEndian>().unwrap());
     }
