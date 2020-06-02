@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 elements = {path = "../elements"}
+byteorder = "1"

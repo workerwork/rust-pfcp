@@ -24,5 +24,3 @@ pub enum MsgType {
     SessionReportRequest = 56,
     SessionReportResponse = 57,
 }
-
-

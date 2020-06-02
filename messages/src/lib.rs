@@ -1,6 +1,6 @@
-pub mod msg_type;
 pub mod association_setup_request;
 pub mod header;
+pub mod msg_type;
 
 pub enum Message {
     ASR(association_setup_request::AssociationSetupRequest),
@@ -12,7 +12,6 @@ pub enum Message {
     SDR(SessionDeletionRequest),
 }
 
-
 pub struct AssociationUpdateRequest {}
 
 pub struct AssociationReleaseRequest {}
@@ -22,4 +21,3 @@ pub struct SessionEstablishmentRequest {}
 pub struct SessionModificationRequest {}
 
 pub struct SessionDeletionRequest {}
-
