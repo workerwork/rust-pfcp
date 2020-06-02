@@ -3,4 +3,6 @@ members = [
 	"elements",
 	"messages",
 	"main",
+	"client",
+	"server",
 ]
