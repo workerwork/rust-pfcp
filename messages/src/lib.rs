@@ -1,9 +1,22 @@
-pub mod association_setup_request;
-pub mod header;
 pub mod msg_type;
+pub mod header;
+pub mod association_setup_request;
+pub mod association_update_request;
+pub mod association_release_request;
+pub mod session_establishment_request;
+pub mod session_modification_request;
+pub mod session_deletion_request;
+
+use header::*;
+use association_setup_request::*;
+use association_update_request::*;
+use association_release_request::*;
+use session_establishment_request::*;
+use session_modification_request::*;
+use session_deletion_request::*;
 
 pub enum Message {
-    ASR(association_setup_request::AssociationSetupRequest),
+    ASR(AssociationSetupRequest),
     AUR(AssociationUpdateRequest),
     ARR(AssociationReleaseRequest),
     //NodeReportResponse,
@@ -12,31 +25,7 @@ pub enum Message {
     SDR(SessionDeletionRequest),
 }
 
-pub struct AssociationUpdateRequest {}
-
-pub struct AssociationReleaseRequest {}
-
-pub struct SessionEstablishmentRequest {}
-
-pub struct SessionModificationRequest {}
-
-pub struct SessionDeletionRequest {}
-
-/*
-#[derive(Debug, Default)]
-pub struct Header {
-    pub version: u8,
-    pub mp: bool,
-    pub s: bool,
-    pub msg_t: u8,
-    pub msg_len: u16,
-    pub seid: Option<u64>,
-    pub sequence: u32,
-    pub priority: Option<u8>,
-}*/
-
-pub fn parse_header<'a>(buf: &'a [u8], header: &mut header::Header) -> &'a [u8] {
-    //let mut header = header::Header::new();
+pub fn parse_header<'a>(buf: &'a [u8], header: &mut Header) -> &'a [u8] {
     header.version = buf[0] >> 5;
     header.msg_t = buf[1];
     header.msg_len = (buf[2] * 16 + buf[3]).into();
