@@ -29,18 +29,18 @@ impl NodeID {
             ie_len: len,
             ..Default::default()
         };
-        match buf[4] & 0b0000_1111 {
+        match buf[0] & 0b0000_1111 {
             t if t == NodeIDType::IPV4 as u8 => {
                 nodeid.node_id_type = NodeIDType::IPV4;
-                nodeid.node_id_value = buf[5..9].to_vec();
+                nodeid.node_id_value = buf[1..5].to_vec();
             }
             t if t == NodeIDType::IPV6 as u8 => {
                 nodeid.node_id_type = NodeIDType::IPV6;
-                nodeid.node_id_value = buf[5..21].to_vec();
+                nodeid.node_id_value = buf[1..17].to_vec();
             }
             t if t == NodeIDType::FQDN as u8 => {
                 nodeid.node_id_type = NodeIDType::FQDN;
-                nodeid.node_id_value = buf[5..7].to_vec();
+                nodeid.node_id_value = buf[1..2].to_vec();
             }
             _ => println!("err"),
         }
