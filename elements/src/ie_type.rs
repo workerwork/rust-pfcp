@@ -2,6 +2,7 @@
 
 #[derive(Debug)]
 pub enum IEType {
+    Null,
     //Grouped IE, extendable
     CreatePDR = 1,
     PDI = 2,
@@ -154,4 +155,10 @@ pub enum IEType {
     PacketReplicationAndDetectionCarryOnInformation = 179,
     SMFSetID = 180,
     QuotaValidityTime = 181,
+}
+
+impl Default for IEType {
+    fn default() -> Self {
+        IEType::Null
+    }
 }

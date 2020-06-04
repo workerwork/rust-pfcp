@@ -34,9 +34,11 @@ impl Header {
 
     pub fn parse(buf: &[u8]) -> Header {
         let mut header = Header {
+            version: buf[0] >> 5,
+            msg_t: buf[1],
+            msg_len: (buf[2] * 16 + buf[3]).into(),
             ..Default::default()
         };
-        header.version = buf[0] >> 5;
         match buf[0] & 0b00000010 >> 1 {
             1 => {
                 header.mp = true;
@@ -70,8 +72,6 @@ impl Header {
                 }
             }
         }
-        header.msg_t = buf[1];
-        header.msg_len = (buf[2] * 16 + buf[3]).into();
         header
     }
 }
