@@ -1,5 +1,5 @@
 use std::net::UdpSocket;
-use std::thread;
+//use std::thread;
 
 fn main() {
     let socket = UdpSocket::bind("0.0.0.0:22222").unwrap();

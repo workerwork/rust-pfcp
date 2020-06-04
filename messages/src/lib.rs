@@ -43,4 +43,17 @@ impl Message {
             }
         }
     }
+
+    pub fn pack(self) -> Vec<u8> {
+        let mut resp_vec: Vec<u8> = Vec::new();
+        match self {
+            Message::ASR(asr) => {
+                //resp_vec.push(asr.header.pack()[0]);
+                resp_vec.append(&mut asr.header.pack());
+                println!("{:?}", resp_vec);
+            }
+            _ => (),
+        }
+        resp_vec
+    }
 }
