@@ -1,6 +1,6 @@
 use super::header::*;
 use super::*;
-use elements::ie_type::*;
+use elements::ie_type;
 use elements::node_id::*;
 use elements::recovery_time_stamp::*;
 
@@ -29,10 +29,12 @@ impl AssociationSetupRequest {
             let elen: u16 = (buf[2] * 16 + buf[3]).into();
             buf = &mut buf[4..];
             match etype {
-                t if t == IEType::NodeID as u16 => {
+                //t if t == IEType::NodeID as u16 => {
+                ie_type::NODE_ID => {
                     associationsetuprequest.node_id = NodeID::decode(buf, elen);
                 }
-                t if t == IEType::RecoveryTimeStamp as u16 => {
+                //t if t == IEType::RecoveryTimeStamp as u16 => {
+                ie_type::RECOVERY_TIME_STAMP => {
                     associationsetuprequest.recovery_time_stamp =
                         RecoveryTimeStamp::decode(buf, elen);
                 }
