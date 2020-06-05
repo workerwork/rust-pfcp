@@ -61,4 +61,13 @@ impl NodeID {
         }
         nodeid
     }
+
+    pub fn encode(mut self) -> Vec<u8> {
+        let mut node_id_vec: Vec<u8> = Vec::new();
+        node_id_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
+        node_id_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
+        node_id_vec.push(self.node_id_type);
+        node_id_vec.append(&mut self.node_id_value);
+        node_id_vec
+    }
 }

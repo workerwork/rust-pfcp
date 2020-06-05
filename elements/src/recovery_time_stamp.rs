@@ -17,4 +17,12 @@ impl RecoveryTimeStamp {
             recovery_time_stamp: buf.to_vec(),
         }
     }
+
+    pub fn encode(mut self) -> Vec<u8> {
+        let mut recovery_time_stamp_vec: Vec<u8> = Vec::new();
+        recovery_time_stamp_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
+        recovery_time_stamp_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
+        recovery_time_stamp_vec.append(&mut self.recovery_time_stamp);
+        recovery_time_stamp_vec
+    }
 }
