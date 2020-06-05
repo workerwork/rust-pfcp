@@ -1,4 +1,4 @@
-//use std::convert::Into;
+use std::convert::TryInto;
 
 #[derive(Debug, Default)]
 pub struct Header {
@@ -78,7 +78,9 @@ impl Header {
         if let Some(seid) = self.seid {
             header_vec.append(&mut seid.to_be_bytes().to_vec());
         }
-        header_vec.append(&mut self.sequence.to_be_bytes().to_vec());
+        header_vec.push(((self.sequence >> 16) & 0xFF).try_into().unwrap());
+        header_vec.push(((self.sequence >> 8) & 0xFF).try_into().unwrap());
+        header_vec.push((self.sequence & 0xFF).try_into().unwrap());
         if let Some(priority) = self.priority {
             header_vec.push(priority);
         } else {

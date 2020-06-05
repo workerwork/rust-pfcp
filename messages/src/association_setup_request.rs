@@ -46,4 +46,11 @@ impl AssociationSetupRequest {
         println!("{:#?}", associationsetuprequest);
         Message::ASR(associationsetuprequest)
     }
+
+    pub fn pack(self) -> Vec<u8> {
+        let mut resp_vec: Vec<u8> = Vec::new();
+        resp_vec.append(&mut self.header.pack());
+        println!("{:?}", resp_vec);
+        resp_vec
+    }
 }
