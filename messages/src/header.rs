@@ -6,9 +6,9 @@ pub struct Header {
     pub mp: bool,
     pub s: bool,
     pub msg_t: u8,
-    pub msg_len: Vec<u8>,
-    pub seid: Option<Vec<u8>>,
-    pub sequence: Vec<u8>,
+    pub msg_len: u16,
+    pub seid: Option<u32>,
+    pub sequence: u32,
     pub priority: Option<u8>,
 }
 
@@ -17,18 +17,18 @@ impl Header {
         let mut header = Header {
             version: buf[0] >> 5,
             msg_t: buf[1],
-            //msg_len: (buf[2] * 16 + buf[3]).into(),
-            msg_len: buf[2..4].to_vec(),
+            msg_len: (buf[2] * 16 + buf[3]).into(),
+            //msg_len: buf[2..4].to_vec(),
             ..Default::default()
         };
         match buf[0] & 0b00000010 >> 1 {
             1 => {
                 header.mp = true;
                 header.seid =
-                    //Some((buf[4] * 16 * 16 * 16 + buf[5] * 16 * 16 + buf[6] * 16 + buf[7]).into());
-                    Some(buf[4..8].to_vec());
-                //header.sequence = (buf[8] * 16 * 16 + buf[9] * 16 + buf[10]).into();
-                header.sequence = buf[8..11].to_vec();
+                    Some((buf[4] * 16 * 16 * 16 + buf[5] * 16 * 16 + buf[6] * 16 + buf[7]).into());
+                    //Some(buf[4..8].to_vec());
+                header.sequence = (buf[8] * 16 * 16 + buf[9] * 16 + buf[10]).into();
+                //header.sequence = buf[8..11].to_vec();
                 match buf[0] & 0b00000001 {
                     1 => {
                         header.s = true;
@@ -43,8 +43,8 @@ impl Header {
             _ => {
                 header.mp = false;
                 header.seid = None;
-                //header.sequence = (buf[4] * 16 * 16 + buf[5] * 16 + buf[6]).into();
-                header.sequence = buf[4..7].to_vec();
+                header.sequence = (buf[4] * 16 * 16 + buf[5] * 16 + buf[6]).into();
+                //header.sequence = buf[4..7].to_vec();
                 match buf[0] & 0b00000001 {
                     1 => {
                         header.s = true;
@@ -60,7 +60,7 @@ impl Header {
         header
     }
 
-    pub fn pack(mut self) -> Vec<u8> {
+    pub fn pack(self) -> Vec<u8> {
         let mut header_vec: Vec<u8> = Vec::new();
         let mut b0: u8 = self.version << 5;
         if self.mp {
@@ -71,14 +71,14 @@ impl Header {
         }
         header_vec.push(b0);
         header_vec.push(self.msg_t);
-        header_vec.append(&mut self.msg_len);
+        header_vec.append(&mut self.msg_len.to_be_bytes().to_vec());
         /*if self.s {
             header_vec.append(&mut self.seid);
         }*/
-        if let Some(mut seid) = self.seid {
-            header_vec.append(&mut seid);
+        if let Some(seid) = self.seid {
+            header_vec.append(&mut seid.to_be_bytes().to_vec());
         }
-        header_vec.append(&mut self.sequence);
+        header_vec.append(&mut self.sequence.to_be_bytes().to_vec());
         if let Some(priority) = self.priority {
             header_vec.push(priority);
         } else {
