@@ -48,11 +48,11 @@ impl AssociationSetupRequest {
     }
 
     pub fn pack(self) -> Vec<u8> {
-        let mut resp_vec: Vec<u8> = Vec::new();
-        resp_vec.append(&mut self.header.pack());
-        resp_vec.append(&mut self.node_id.encode());
-        resp_vec.append(&mut self.recovery_time_stamp.encode());
-        println!("{:?}", resp_vec);
-        resp_vec
+        let mut message_vec: Vec<u8> = Vec::new();
+        message_vec.append(&mut self.header.pack());
+        message_vec.append(&mut self.node_id.encode());
+        message_vec.append(&mut self.recovery_time_stamp.encode());
+        println!("{:?}", message_vec);
+        message_vec
     }
 }
