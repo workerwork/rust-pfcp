@@ -35,8 +35,12 @@ impl Message {
             buf = &mut buf[4..];
         }
         match header.msg_t {
-            //t if t == MsgType::AssociationSetupRequest as u8 => {
             msg_type::ASSOCIATION_SETUP_REQUEST => AssociationSetupRequest::parse(buf, header),
+            //msg_type::ASSOCIATION_UPDATE_REQUEST => AssociationUpdateRequest::parse(buf, header),
+            //msg_type::ASSOCIATION_RELEASE_REQUEST => AssociationReleaseRequest::parse(buf, header),
+            //msg_type::SESSION_ESTABLISHMENT_REQUEST => SessionEstablishmentRequest::parse(buf, header),
+            //msg_type::SESSION_MODIFICATION_REQUEST => SessionModificationRequest::parse(buf, header),
+            //msg_type::SESSION_DELETION_REQUEST => SessionDeletionRequest::parse(buf, header),
             _ => {
                 println!("err");
                 AssociationSetupRequest::parse(buf, header)
@@ -46,12 +50,12 @@ impl Message {
 
     pub fn pack(self) -> Vec<u8> {
         match self {
-            Message::ASR(asr) => {
-                asr.pack()
-                //resp_vec.push(asr.header.pack()[0]);
-                //resp_vec.append(&mut asr.header.pack());
-                //println!("{:?}", resp_vec);
-            }
+            Message::ASR(asr) => asr.pack(),
+            //Message::AUR(aur) => aur.pack(),
+            //Message::ARR(arr) => arr.pack(),
+            //Message::SER(ser) => ser.pack(),
+            //Message::SMR(smr) => smr.pack(),
+            //Message::SDR(sdr) => sdr.pack(),
             _ => vec!(0),
         }
     }
