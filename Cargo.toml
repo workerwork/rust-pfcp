@@ -1,9 +1,7 @@
 [workspace]
 members = [
-	"elements",
 	"messages",
 	"client",
 	"server",
-	"web_inf",
 ]
 

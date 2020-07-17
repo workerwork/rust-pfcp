@@ -1,5 +1,7 @@
+mod web;
+
 use messages::Message;
-use web_inf::http_server;
+use web::web_inf::http_server;
 use std::net::UdpSocket;
 use std::thread;
 
@@ -11,7 +13,6 @@ use std::io::prelude::*;
 use yaml_rust::yaml;
 
 fn main() {
-    thread::spawn(http_server);
     let args: Vec<_> = env::args().collect();
     let mut f = File::open(&args[1]).unwrap();
     let mut s = String::new();
@@ -26,6 +27,11 @@ fn main() {
 
     let socket = UdpSocket::bind(addr).unwrap();
     let mut buf = [0u8; 65535];
+
+    //web interface handler thread
+    thread::spawn(http_server);
+    
+    //main thread
     loop {
         let (amt, src) = socket.recv_from(&mut buf).unwrap();
         println!("received {} bytes from: {:?}", amt, src);

@@ -26,7 +26,7 @@ pub async fn http_server() -> std::io::Result<()> {
                 //.route("/index.html", web::get().to(index4))
                 .route("/name", web::get().to(index5)), //.route("/dongfeng", web::get().to(_index)),
         )
-    })
+    })  
     .bind("127.0.0.1:8000")?
     .run()
     .await
