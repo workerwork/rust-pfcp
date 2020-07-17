@@ -4,5 +4,6 @@ members = [
 	"messages",
 	"client",
 	"server",
+	"web_inf",
 ]
 

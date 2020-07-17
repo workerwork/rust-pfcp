@@ -1,7 +1,9 @@
 use messages::Message;
+use web_inf::http_server;
 use std::net::UdpSocket;
+use std::thread;
 
-extern crate yaml_rust;
+//extern crate yaml_rust;
 
 use std::env;
 use std::fs::File;
@@ -9,6 +11,7 @@ use std::io::prelude::*;
 use yaml_rust::yaml;
 
 fn main() {
+    thread::spawn(http_server);
     let args: Vec<_> = env::args().collect();
     let mut f = File::open(&args[1]).unwrap();
     let mut s = String::new();
@@ -30,3 +33,4 @@ fn main() {
         Message::parse(&mut buf[..amt]).pack();
     }
 }
+
