@@ -12,3 +12,4 @@ yaml-rust = "0.4"
 #web_inf = {path = "../web_inf"}
 actix-web = "2.0"
 actix-rt = "1.0"
+clap = "2.33"
