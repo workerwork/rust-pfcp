@@ -16,9 +16,8 @@ fn main() {
     let (socket,) = args::get_args();
     let mut buf = [0u8; 65535];
 
-    if let Ok(t) = redis::get() {
-        println!("{}", t);
-    }
+    let t = redis::get().unwrap();
+    println!("{}", t);
 
     loop {
         let (amt, src) = socket.recv_from(&mut buf).unwrap();
