@@ -1,18 +1,25 @@
+//#[macro_use]
+//extern crate dotenv_codegen;
 mod args;
-mod web;
+//mod web;
+mod redis;
 
 use messages::Message;
-use std::net::UdpSocket;
-//use std::process::exit;
-//use std::thread;
-//use web::web_inf::http_server;
-//use std::env;
+use std::thread;
+//use std::sync::mpsc;
+//use web::web_inf;
 
 fn main() {
     //web interface handler thread
-    //thread::spawn(http_server);
+    //thread::spawn(web_inf::http_server);
+
     let (socket,) = args::get_args();
     let mut buf = [0u8; 65535];
+
+    if let Ok(t) = redis::get() {
+        println!("{}", t);
+    }
+
     loop {
         let (amt, src) = socket.recv_from(&mut buf).unwrap();
         println!("received {} bytes from: {:?}", amt, src);
