@@ -4,8 +4,9 @@ mod args;
 //mod web;
 mod redis;
 mod log;
+mod upf;
 
-use messages::Message;
+//use messages::Message;
 use std::thread;
 //use std::sync::mpsc;
 //use web::web_inf;
@@ -26,6 +27,7 @@ fn main() {
         let (amt, src) = socket.recv_from(&mut buf).unwrap();
         println!("received {} bytes from: {:?}", amt, src);
         println!("{:?}", &buf[..amt]);
-        Message::parse(&mut buf[..amt]).pack();
+        //Message::parse(&mut buf[..amt]).pack();
+        upf::run(&mut buf[..amt]);
     }
 }
