@@ -5,6 +5,7 @@ mod args;
 mod redis;
 mod log;
 mod upf;
+use upf::upf::run;
 
 //use messages::Message;
 use std::thread;
@@ -28,6 +29,6 @@ fn main() {
         println!("received {} bytes from: {:?}", amt, src);
         println!("{:?}", &buf[..amt]);
         //Message::parse(&mut buf[..amt]).pack();
-        upf::run(&mut buf[..amt]);
+        run(&mut buf[..amt]);
     }
 }

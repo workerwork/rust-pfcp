@@ -7,7 +7,7 @@ fn main() {
         0x20, 0x05, 0x00, 0x15, 0x00, 0x00, 0x01, 0x00, 0x00, 0x3c, 0x00, 0x05, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x60, 0x00, 0x04, 0xce, 0x0b, 0xd6, 0x5d,
     ];
-    //socket.send_to(&buf[0..25], "192.168.119.145:8888").unwrap();
-    socket.send_to(&buf[0..25], "192.168.1.7:8888").unwrap();
+    socket.send_to(&buf[0..25], "192.168.119.145:8888").unwrap();
+    //socket.send_to(&buf[0..25], "192.168.1.7:8888").unwrap();
     //thread::sleep_ms(1000);
 }
