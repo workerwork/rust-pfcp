@@ -6,6 +6,8 @@ use std::thread;
 use std::time;
 
 pub fn run() {
+    //配置动态生效
+    //每次运行主逻辑之前读标识位，如改变，重新读配置
     let (socket,) = args::get_args();
     let mut buf = [0u8; 65535];
 
@@ -18,7 +20,9 @@ pub fn run() {
         let (tx, rx) = mpsc::channel();
         let message = Message::parse(&mut buf[..amt]);
         tx.send(message).unwrap();
-
+        
+        //one udp packet, one thread
+        //根据ip/session id地址,分配线程,每个用户的操作排队
         thread::spawn(move || {
             let message = rx.recv().unwrap();
             println!("Got: {:?}", message);
