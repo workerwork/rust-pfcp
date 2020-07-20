@@ -17,6 +17,7 @@ use session_deletion_request::*;
 use session_establishment_request::*;
 use session_modification_request::*;
 
+#[derive(Debug)]
 pub enum Message {
     ASR(AssociationSetupRequest),
     AUR(AssociationUpdateRequest),
