@@ -5,7 +5,7 @@ mod args;
 mod log;
 mod redis;
 mod upf;
-use upf::upf::run;
+use upf::core;
 
 //use messages::Message;
 use std::thread;
@@ -16,7 +16,7 @@ fn main() {
     //web interface handler thread
     //thread::spawn(web_inf::http_server);
 
-    let (socket,) = args::get_args();
+    /*let (socket,) = args::get_args();
     let mut buf = [0u8; 65535];
 
     let t = redis::get().unwrap();
@@ -29,6 +29,7 @@ fn main() {
         println!("received {} bytes from: {:?}", amt, src);
         println!("{:?}", &buf[..amt]);
         //Message::parse(&mut buf[..amt]).pack();
-        run(&mut buf[..amt]);
-    }
+        core::run(&mut buf[..amt]);
+    }*/
+    core::run();
 }
