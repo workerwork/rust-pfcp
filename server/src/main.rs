@@ -3,6 +3,7 @@
 mod args;
 //mod web;
 mod redis;
+mod log;
 
 use messages::Message;
 use std::thread;
@@ -18,6 +19,8 @@ fn main() {
 
     let t = redis::get().unwrap();
     println!("{}", t);
+
+    log::logger();
 
     loop {
         let (amt, src) = socket.recv_from(&mut buf).unwrap();

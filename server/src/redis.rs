@@ -16,3 +16,5 @@ pub fn get() -> redis::RedisResult<isize> {
     // convert into one.
     con.get("my_key")
 }
+
+//todo redis pool
