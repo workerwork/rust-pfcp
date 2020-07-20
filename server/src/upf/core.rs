@@ -3,6 +3,7 @@ use super::super::args;
 use messages::Message;
 use std::sync::mpsc;
 use std::thread;
+use std::time;
 
 pub fn run() {
     let (socket,) = args::get_args();
@@ -22,10 +23,13 @@ pub fn run() {
             let message = rx.recv().unwrap();
             println!("Got: {:?}", message);
             message.pack();
+            let ten_millis = time::Duration::from_millis(10000);
+            thread::sleep(ten_millis);
             //todo ...
-        })
-        .join()
-        .unwrap();
+            println!("ok");
+        });
+        //.join()
+        //.unwrap();
         /*let mut q = Queue::new();
         q.push(message);
         //println!("{:?}", q);
@@ -34,6 +38,7 @@ pub fn run() {
             //多线程
             message.pack();
         }*/
+        println!("test");
     }
     println!("over");
 }
