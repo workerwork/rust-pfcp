@@ -2,8 +2,8 @@
 //extern crate dotenv_codegen;
 mod args;
 //mod web;
-mod redis;
 mod log;
+mod redis;
 mod upf;
 use upf::upf::run;
 

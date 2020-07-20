@@ -3,16 +3,16 @@ pub struct Queue<T> {
     qdata: Vec<T>,
 }
 
-impl <T> Queue<T> {
+impl<T> Queue<T> {
     pub fn new() -> Self {
-        Queue{ qdata: Vec::new() }
+        Queue { qdata: Vec::new() }
     }
 
     pub fn push(&mut self, item: T) {
         self.qdata.push(item);
     }
 
-    pub fn pop(&mut self) ->Option<T> {
+    pub fn pop(&mut self) -> Option<T> {
         let l = self.qdata.len();
 
         if l > 0 {
