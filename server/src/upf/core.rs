@@ -1,8 +1,8 @@
 use super::super::args;
 //use super::queue::Queue;
 use messages::Message;
-use std::thread;
 use std::sync::mpsc;
+use std::thread;
 
 pub fn run() {
     let (socket,) = args::get_args();
@@ -19,9 +19,13 @@ pub fn run() {
         tx.send(message).unwrap();
 
         thread::spawn(move || {
-            let received = rx.recv().unwrap();
-            println!("Got: {:?}", received);
-        }).join().unwrap();
+            let message = rx.recv().unwrap();
+            println!("Got: {:?}", message);
+            message.pack();
+            //todo ...
+        })
+        .join()
+        .unwrap();
         /*let mut q = Queue::new();
         q.push(message);
         //println!("{:?}", q);
@@ -30,6 +34,6 @@ pub fn run() {
             //多线程
             message.pack();
         }*/
-        println!("over");
     }
+    println!("over");
 }
