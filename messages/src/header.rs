@@ -26,7 +26,7 @@ impl Header {
                 header.mp = true;
                 header.seid =
                     Some((buf[4] * 16 * 16 * 16 + buf[5] * 16 * 16 + buf[6] * 16 + buf[7]).into());
-                    //Some(buf[4..8].to_vec());
+                //Some(buf[4..8].to_vec());
                 header.sequence = (buf[8] * 16 * 16 + buf[9] * 16 + buf[10]).into();
                 //header.sequence = buf[8..11].to_vec();
                 match buf[0] & 0b00000001 {

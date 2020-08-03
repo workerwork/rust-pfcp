@@ -1,7 +1,7 @@
-pub mod elements;
 pub mod association_release_request;
 pub mod association_setup_request;
 pub mod association_update_request;
+pub mod elements;
 pub mod header;
 pub mod msg_type;
 pub mod session_deletion_request;
@@ -58,7 +58,7 @@ impl Message {
             //Message::SER(ser) => ser.pack(),
             //Message::SMR(smr) => smr.pack(),
             //Message::SDR(sdr) => sdr.pack(),
-            _ => vec!(0),
+            _ => vec![0],
         }
     }
 }

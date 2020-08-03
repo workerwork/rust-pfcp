@@ -5,7 +5,7 @@ pub struct RecoveryTimeStamp {
     ie_type: u16,
     ie_len: u16,
     recovery_time_stamp: Vec<u8>, //4bytes
-    //recovery_time_stamp: u32,
+                                  //recovery_time_stamp: u32,
 }
 
 impl RecoveryTimeStamp {

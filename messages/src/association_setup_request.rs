@@ -32,8 +32,7 @@ impl AssociationSetupRequest {
                     message.node_id = NodeID::decode(buf, elen);
                 }
                 ie_type::RECOVERY_TIME_STAMP => {
-                    message.recovery_time_stamp =
-                        RecoveryTimeStamp::decode(buf, elen);
+                    message.recovery_time_stamp = RecoveryTimeStamp::decode(buf, elen);
                 }
                 _ => println!(""),
             }
