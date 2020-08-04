@@ -1,5 +1,6 @@
 //use std::error::Error;
-use anyhow::Result;
+//use anyhow::Result;
+use super::PfcpError;
 use super::ie_type;
 
 
@@ -48,10 +49,12 @@ pub struct CreatePDR {
     //Several IEs within the same IE type may be present to represent a list of QERs to be
     //associated to the PDR.
     qer_ids: Option<Vec<QERID>>,    //C
+
+    //TODO
 }
 
 impl CreatePDR {
-   pub fn decode(buf: &[u8], len: u16) -> Result<CreatePDR> {
+   pub fn decode(buf: &[u8], len: u16) -> Result<CreatePDR, PfcpError> {
         let mut element = CreatePDR {
             ie_type: ie_type::CREATE_PDR,
             ie_len: len,
@@ -72,18 +75,30 @@ impl CreatePDR {
                     element.pdr_id = PDRID::decode(buf, elen)?;
                 }
                 ie_type::OUTER_HEADER_REMOVAL => {
-                    element.outer_header_removal = Some(OuterHeaderRemoval::decode(buf, elen).unwrap());
+                    element.outer_header_removal = Some(OuterHeaderRemoval::decode(buf, elen)?);
                 }
                 ie_type::FAR_ID => {
-                    element.far_id = FARID::decode(buf, elen)?;
+                    element.far_id = Some(FARID::decode(buf, elen)?);
                 }
                 ie_type::URR_ID => {
-                    element.urr_ids.append(URRID::decode(buf, elen)?);
+                    let urr_id = URRID::decode(buf, elen)?;
+                    if let Some(urr_ids) = element.urr_ids {
+                        urr_ids.append(urr_id);
+                        element.urr_ids = Some(urr_ids);
+                    } else {
+                        element.urr_ids = Some(urr_id);
+                    }
                 }
                 ie_type::QER_ID => {
-                    element.qer_ids.append(QERID::decode(buf, elen)?);
+                    let qer_id = QERID::decode(buf, elen)?;
+                    if let Some(qer_ids) = element.qer_ids {
+                        qer_ids.append(qer_id);
+                        element.qer_ids = Some(qer_ids);
+                    } else {
+                        element.qer_ids = Some(qer_id);
+                    }
                 }
-                _ => return Ok();
+                _ => return Err(PfcpError::UnknownCreatePDR);
             }
             buf = &mut buf[elen.into()..];
         }

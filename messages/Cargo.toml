@@ -8,5 +8,5 @@ edition = "2018"
 
 [dependencies]
 #elements = {path = "../elements"}
-anyhow = "1.0"
+#anyhow = "1.0"
 thiserror = "1.0"

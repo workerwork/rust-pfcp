@@ -17,6 +17,24 @@ use session_deletion_request::*;
 use session_establishment_request::*;
 use session_modification_request::*;
 
+//define error
+use std::io;
+use thiserror::Error;
+
+#[derive(Error, Debug)]
+pub enum PFCPError {
+    #[error("data store disconnected")]
+    Disconnect(#[from] io::Error),
+    #[error("the data for key `{0}` is not available")]
+    Redaction(String),
+    #[error("invalid header (expected {expected:?}, found {found:?})")]
+    InvalidHeader { expected: String, found: String },
+    #[error("unknown pfcp error")]
+    Unknown,
+    #[error("unknown CreatePDR element")]
+    UnknownCreatePDR,
+}
+
 #[derive(Debug)]
 pub enum Message {
     ASR(AssociationSetupRequest),

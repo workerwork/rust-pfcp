@@ -1,21 +1,17 @@
-//use super::ie_type::IEType;
+use super::super::PFCPError;
 use super::ie_type;
 
-/*
-#[derive(Debug)]
-pub enum NodeIDType {
-    IPV4 = 0,
-    IPV6 = 1,
-    FQDN = 2,
-    Null = 255,
-}
+// -----------------------------------------------------------------------
+//	                    Bits
+// Octets	8	7	6	5	4	3	2	1
+// 1 to 2	        Type = 60 (decimal)
+// 3 to 4	        Length = n
+// 5	        Spare	    Node ID Type
+// 6 to o	        Node ID Value
+// m to (n+4)	These octet(s) is/are present only if explicitly specified
+// -----------------------------------------------------------------------
 
-impl Default for NodeIDType {
-    fn default() -> Self {
-        NodeIDType::Null
-    }
-}*/
-
+//The Node ID IE shall contain an FQDN or an IPv4/IPv6 address.
 const NODE_ID_TYPE_IPV4: u8 = 0;
 const NODE_ID_TYPE_IPV6: u8 = 1;
 const NODE_ID_TYPE_FQDN: u8 = 2;
@@ -24,12 +20,16 @@ const NODE_ID_TYPE_FQDN: u8 = 2;
 pub struct NodeID {
     ie_type: u16,
     ie_len: u16,
+
+    //Node ID Type
     node_id_type: u8,
+
+    //Node ID Value
     node_id_value: Vec<u8>,
 }
 
 impl NodeID {
-    pub fn decode(buf: &[u8], len: u16) -> NodeID {
+    pub fn decode(buf: &[u8], len: u16) -> Result<NodeID, PFCPError> {
         let mut element = NodeID {
             ie_type: ie_type::NODE_ID,
             ie_len: len,
@@ -48,9 +48,9 @@ impl NodeID {
                 element.node_id_type = NODE_ID_TYPE_FQDN;
                 element.node_id_value = buf[1..2].to_vec();
             }
-            _ => println!("err"),
+            _ => return Err(PFCPError::Unknown),
         }
-        element
+        Ok(element)
     }
 
     pub fn encode(mut self) -> Vec<u8> {
