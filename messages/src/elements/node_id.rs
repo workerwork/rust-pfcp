@@ -12,6 +12,15 @@ use super::ie_type;
 // -----------------------------------------------------------------------
 
 //The Node ID IE shall contain an FQDN or an IPv4/IPv6 address.
+//Bit 1 – V6: If this bit is set to "1", then IPv6 address field shall be present in the F-SEID,
+//otherwise the IPv6 address field is not present at all.
+//
+//Bit 2 – V4: If this bit is set to "1", then IPv4 address field shall be present in the F-SEID,
+//otherwise the IPv4 address field is not present at all.
+//
+//Bit 3 to 8 are spare and reserved for future use.
+//
+//At least one of V4 and V6 shall be set to "1", and both may be set to "1".
 const NODE_ID_TYPE_IPV4: u8 = 0;
 const NODE_ID_TYPE_IPV6: u8 = 1;
 const NODE_ID_TYPE_FQDN: u8 = 2;
