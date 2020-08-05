@@ -47,29 +47,33 @@ pub struct FTEID {
 
 
 impl FTEID {
-    pub fn decode(buf: &[u8], len: u16) -> Result<FTEID, PFCPError> {
+    pub fn decode(buf: &mut [u8], len: u16) -> Result<FTEID, PFCPError> {
         let mut element = FTEID {
             ie_type: ie_type::F_TEID,
             ie_len: len,
             ..Default::default()
         };
         element.mask = buf[0];
-        buf = buf[1..];
+        buf = &mut buf[1..];
         if element.mask & 0b0000_0100 != 0 {
             element.choose_id = buf[0];
+            buf = &mut buf[1..];
         } else {
-            element.teid = Some(buf[1..=4].to_vec());
+            element.teid = Some(buf[0..=3].to_vec());
+            buf = &mut buf[4..];
             if element.mask & 0b0000_0001 != 0 {
-                element.ipv4_addr = buf[5..=8];
-            }
+                element.ipv4_addr = Some(buf[0..=7].to_vec());
+                buf = &mut buf[8..];
+            } 
             if element.mask & 0b0000_0010 != 0 {
-                element.ipv6_addr = buf[];
+                element.ipv6_addr = Some(buf[0..=15].to_vec());
+                buf = &mut buf[16..];
             }
-            match element.mask {
-                m if m & 0b0000_0001 != 0 => element.ipv4_addr = buf[5..=8],
-                m if m 
-            }    
+            if element.mask & 0b0000_0100 != 0 {
+                element.choose_id = Some(buf[0]);
+            }
         }
+        Ok(element)
     }
 
     pub fn encode(mut self) -> Vec<u8> {
