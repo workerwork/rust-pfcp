@@ -37,8 +37,42 @@ pub struct FTEID {
     //This bit shall only be set by the CP function.
     //
     //Bit 5 to 8: Spare, for future use and set to 0.
-    mask: u8,
+    mask: u8,   //M
 
-    //
+    teid: Option<Vec<u8>>,  //C 4bytes
+    ipv4_addr: Option<Vec<u8>>, //C 4bytes
+    ipv6_addr: Option<Vec<u8>>, //C 16bytes
+    choose_id: Option<u8>, //C 
+}
 
+
+impl FTEID {
+    pub fn decode(buf: &[u8], len: u16) -> Result<FTEID, PFCPError> {
+        let mut element = FTEID {
+            ie_type: ie_type::F_TEID,
+            ie_len: len,
+            ..Default::default()
+        };
+        element.mask = buf[0];
+        buf = buf[1..];
+        if element.mask & 0b0000_0100 != 0 {
+            element.choose_id = buf[0];
+        } else {
+            element.teid = Some(buf[1..=4].to_vec());
+            if element.mask & 0b0000_0001 != 0 {
+                element.ipv4_addr = buf[5..=8];
+            }
+            if element.mask & 0b0000_0010 != 0 {
+                element.ipv6_addr = buf[];
+            }
+            match element.mask {
+                m if m & 0b0000_0001 != 0 => element.ipv4_addr = buf[5..=8],
+                m if m 
+            }    
+        }
+    }
+
+    pub fn encode(mut self) -> Vec<u8> {
+
+    }
 }

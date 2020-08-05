@@ -1,6 +1,6 @@
 //use std::error::Error;
 //use anyhow::Result;
-use super::PfcpError;
+use super::PFCPError;
 use super::ie_type;
 
 
@@ -54,7 +54,7 @@ pub struct CreatePDR {
 }
 
 impl CreatePDR {
-   pub fn decode(buf: &[u8], len: u16) -> Result<CreatePDR, PfcpError> {
+   pub fn decode(buf: &[u8], len: u16) -> Result<CreatePDR, PFCPError> {
         let mut element = CreatePDR {
             ie_type: ie_type::CREATE_PDR,
             ie_len: len,
@@ -98,7 +98,7 @@ impl CreatePDR {
                         element.qer_ids = Some(qer_id);
                     }
                 }
-                _ => return Err(PfcpError::UnknownCreatePDR);
+                _ => return Err(PFCPError::UnknownCreatePDR);
             }
             buf = &mut buf[elen.into()..];
         }

@@ -47,15 +47,15 @@ impl NodeID {
         match buf[0] & 0b0000_1111 {
             NODE_ID_TYPE_IPV4 => {
                 element.node_id_type = NODE_ID_TYPE_IPV4;
-                element.node_id_value = buf[1..5].to_vec();
+                element.node_id_value = buf[1..=4].to_vec();
             }
             NODE_ID_TYPE_IPV6 => {
                 element.node_id_type = NODE_ID_TYPE_IPV6;
-                element.node_id_value = buf[1..17].to_vec();
+                element.node_id_value = buf[1..=16].to_vec();
             }
             NODE_ID_TYPE_FQDN => {
                 element.node_id_type = NODE_ID_TYPE_FQDN;
-                element.node_id_value = buf[1..2].to_vec();
+                element.node_id_value = buf[1..=2].to_vec();
             }
             _ => return Err(PFCPError::Unknown),
         }
