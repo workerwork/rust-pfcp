@@ -2,7 +2,7 @@ use std::net::UdpSocket;
 //use std::thread;
 
 fn main() {
-    test1();
+    test2();
 }
 
 

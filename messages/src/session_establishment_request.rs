@@ -55,7 +55,7 @@ impl SessionEstablishmentRequest {
                 ie_type::CREATE_URR => {
                     message.create_urrs.append(CreateURR::decode(buf, elen).unwrap());
                 }
-                ie_type::CREATE_QER = > {
+                ie_type::CREATE_QER => {
                     message.create_qers.append(CreateQER::decode(buf, elen).unwrap());
                 }
                 _ => println!(""),
