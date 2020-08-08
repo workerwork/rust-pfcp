@@ -21,7 +21,7 @@ impl Header {
             //msg_len: buf[2..4].to_vec(),
             ..Default::default()
         };
-        match buf[0] & 0b00000010 >> 1 {
+        match buf[0] & 0b0000_0010 >> 1 {
             1 => {
                 header.mp = true;
                 header.seid =
@@ -29,7 +29,7 @@ impl Header {
                 //Some(buf[4..8].to_vec());
                 header.sequence = (buf[8] * 16 * 16 + buf[9] * 16 + buf[10]).into();
                 //header.sequence = buf[8..11].to_vec();
-                match buf[0] & 0b00000001 {
+                match buf[0] & 0b0000_0001 {
                     1 => {
                         header.s = true;
                         header.priority = Some(buf[12]);
@@ -45,7 +45,7 @@ impl Header {
                 header.seid = None;
                 header.sequence = (buf[4] * 16 * 16 + buf[5] * 16 + buf[6]).into();
                 //header.sequence = buf[4..7].to_vec();
-                match buf[0] & 0b00000001 {
+                match buf[0] & 0b0000_0001 {
                     1 => {
                         header.s = true;
                         header.priority = Some(buf[8]);
