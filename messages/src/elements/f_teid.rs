@@ -19,7 +19,7 @@ pub struct FTEID {
     ie_type: u16,
     ie_len: u16,
 
-    //Bit 1 – V4: If this bit is set to "1" and the CH bit is not set, then the IPv4 address field 
+    //Bit 1 – V4: If this bit is set to "1" and the CH bit is not set, then the IPv4 address field
     //shall be present, otherwise the IPv4 address field shall not be present.
     //
     //Bit 2 – V6: If this bit is set to "1" and the CH bit is not set, then the IPv6 address field
@@ -37,14 +37,13 @@ pub struct FTEID {
     //This bit shall only be set by the CP function.
     //
     //Bit 5 to 8: Spare, for future use and set to 0.
-    mask: u8,   //M
+    mask: u8, //M
 
-    teid: Option<Vec<u8>>,  //C 4bytes
+    teid: Option<Vec<u8>>,      //C 4bytes
     ipv4_addr: Option<Vec<u8>>, //C 4bytes
     ipv6_addr: Option<Vec<u8>>, //C 16bytes
-    choose_id: Option<u8>, //C 
+    choose_id: Option<u8>,      //C
 }
-
 
 impl FTEID {
     pub fn decode(buf: &mut [u8], len: u16) -> Result<FTEID, PFCPError> {
@@ -64,7 +63,7 @@ impl FTEID {
             if element.mask & 0b0000_0001 != 0 {
                 element.ipv4_addr = Some(buf[0..=7].to_vec());
                 buf = &mut buf[8..];
-            } 
+            }
             if element.mask & 0b0000_0010 != 0 {
                 element.ipv6_addr = Some(buf[0..=15].to_vec());
                 buf = &mut buf[16..];
@@ -76,7 +75,5 @@ impl FTEID {
         Ok(element)
     }
 
-    pub fn encode(mut self) -> Vec<u8> {
-
-    }
+    pub fn encode(mut self) -> Vec<u8> {}
 }

@@ -7,8 +7,4 @@ pub struct FSEID {
     ie_len: u16,
 }
 
-impl FSEID {
-
-
-}
-
+impl FSEID {}

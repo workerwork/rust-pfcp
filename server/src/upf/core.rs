@@ -20,7 +20,7 @@ pub fn run() {
         let (tx, rx) = mpsc::channel();
         let message = Message::parse(&mut buf[..amt]);
         tx.send(message).unwrap();
-        
+
         //one udp packet, one thread
         //根据ip/session id地址,分配线程,每个用户的操作排队
         thread::spawn(move || {

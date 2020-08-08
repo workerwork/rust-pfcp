@@ -1,13 +1,13 @@
 use super::header::*;
 use super::*;
+use elements::create_far::*;
+use elements::create_pdr::*;
+use elements::create_qer::*;
+use elements::create_urr::*;
+use elements::f_seid::*;
 use elements::ie_type;
 use elements::node_id::*;
-use elements::f_seid::*;
 use elements::pdn_type::*;
-use elements::create_pdr::*;
-use elements::create_far::*;
-use elements::create_urr::*;
-use elements::create_qer::*;
 
 #[derive(Debug, Default)]
 pub struct SessionEstablishmentRequest {
@@ -47,16 +47,24 @@ impl SessionEstablishmentRequest {
                     message.pdn_type = PDNType::decode(buf, elen).unwrap();
                 }
                 ie_type::CREATE_PDR => {
-                    message.create_pdrs.append(CreatePDR::decode(buf, elen).unwrap());
+                    message
+                        .create_pdrs
+                        .append(CreatePDR::decode(buf, elen).unwrap());
                 }
                 ie_type::CREATE_FAR => {
-                    message.create_fars.append(CreateFAR::decode(buf, elen).unwrap());
+                    message
+                        .create_fars
+                        .append(CreateFAR::decode(buf, elen).unwrap());
                 }
                 ie_type::CREATE_URR => {
-                    message.create_urrs.append(CreateURR::decode(buf, elen).unwrap());
+                    message
+                        .create_urrs
+                        .append(CreateURR::decode(buf, elen).unwrap());
                 }
                 ie_type::CREATE_QER => {
-                    message.create_qers.append(CreateQER::decode(buf, elen).unwrap());
+                    message
+                        .create_qers
+                        .append(CreateQER::decode(buf, elen).unwrap());
                 }
                 _ => println!(""),
             }
@@ -80,5 +88,3 @@ impl SessionEstablishmentRequest {
         message_vec
     }
 }
-
-

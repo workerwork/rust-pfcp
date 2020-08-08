@@ -58,7 +58,9 @@ impl Message {
             msg_type::ASSOCIATION_SETUP_REQUEST => AssociationSetupRequest::parse(buf, header),
             //msg_type::ASSOCIATION_UPDATE_REQUEST => AssociationUpdateRequest::parse(buf, header),
             //msg_type::ASSOCIATION_RELEASE_REQUEST => AssociationReleaseRequest::parse(buf, header),
-            msg_type::SESSION_ESTABLISHMENT_REQUEST => SessionEstablishmentRequest::parse(buf, header),
+            msg_type::SESSION_ESTABLISHMENT_REQUEST => {
+                SessionEstablishmentRequest::parse(buf, header)
+            }
             //msg_type::SESSION_MODIFICATION_REQUEST => SessionModificationRequest::parse(buf, header),
             //msg_type::SESSION_DELETION_REQUEST => SessionDeletionRequest::parse(buf, header),
             _ => {

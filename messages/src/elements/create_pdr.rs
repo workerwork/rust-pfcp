@@ -1,45 +1,43 @@
 //use std::error::Error;
 //use anyhow::Result;
-use super::PFCPError;
 use super::ie_type;
-
+use super::PFCPError;
 
 #[derive(Debug, Default)]
 pub struct CreatePDR {
-    
     ie_type: u16,
     ie_len: u16,
 
     //This IE shall contain the PDI against which incoming packets will be matched.
-    pdi: PDI,   //M
+    pdi: PDI, //M
 
-    //This IE shall indicate the PDR's precedence to be applied by the UP function 
+    //This IE shall indicate the PDR's precedence to be applied by the UP function
     //among all PDRs of the PFCP session, when looking for a PDR matching an incoming packet.
     precedence: Precedence, //M
 
-    //This IE shall uniquely identify the PDR among all the PDRs configured 
+    //This IE shall uniquely identify the PDR among all the PDRs configured
     //for that PFCP session.
-    pdr_id: PDRID,  //M
+    pdr_id: PDRID, //M
 
-    //This IE shall be present if the UP function is required to remove 
+    //This IE shall be present if the UP function is required to remove
     //one or more outer header(s) from the packets matching this PDR.
-    outer_header_removal: Option<OuterHeaderRemoval>,   //C 
+    outer_header_removal: Option<OuterHeaderRemoval>, //C
 
-    //This IE shall be present if the Activate Predefined Rules IE is not included or 
-    //if it is included but it does not result in activating a predefined FAR, 
+    //This IE shall be present if the Activate Predefined Rules IE is not included or
+    //if it is included but it does not result in activating a predefined FAR,
     //and if the MAR ID is not included.
     //
     //When present this IE shall contain the FAR ID to be associated to the PDR.
-    far_id: Option<FARID>,  //C
+    far_id: Option<FARID>, //C
 
-    //This IE shall be present if a measurement action shall be 
+    //This IE shall be present if a measurement action shall be
     //applied to packets matching this PDR.
     //
     //When present, this IE shall contain the URR IDs to be associated to the PDR.
     //
     //Several IEs within the same IE type may be present to represent a list of URRs to be
     //associated to the PDR.
-    urr_ids: Option<Vec<URRID>>,    //C
+    urr_ids: Option<Vec<URRID>>, //C
 
     //This IE shall be present if a QoS enforcement or QoS marking action shall be applied to
     //packets matching this PDR.
@@ -48,13 +46,13 @@ pub struct CreatePDR {
     //
     //Several IEs within the same IE type may be present to represent a list of QERs to be
     //associated to the PDR.
-    qer_ids: Option<Vec<QERID>>,    //C
+    qer_ids: Option<Vec<QERID>>, //C
 
-    //TODO
+                                 //TODO
 }
 
 impl CreatePDR {
-   pub fn decode(buf: &[u8], len: u16) -> Result<CreatePDR, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> Result<CreatePDR, PFCPError> {
         let mut element = CreatePDR {
             ie_type: ie_type::CREATE_PDR,
             ie_len: len,
@@ -98,12 +96,11 @@ impl CreatePDR {
                         element.qer_ids = Some(qer_id);
                     }
                 }
-                _ => return Err(PFCPError::UnknownCreatePDR);
             }
             buf = &mut buf[elen.into()..];
         }
         Ok(element)
-   }
+    }
 
     pub fn encode(mut self) -> Vec<u8> {
         let mut element_vec: Vec<u8> = Vec::new();
