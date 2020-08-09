@@ -52,7 +52,7 @@ impl FSEID {
             }
             0b0000_0011 => {
                 element.ipv4_addr = Some(buf[0..=3].to_vec());
-                element.ipv6_addr = Some(buf[4..=20].to_vec());
+                element.ipv6_addr = Some(buf[4..=19].to_vec());
             }
         }
         Ok(element)
