@@ -75,5 +75,23 @@ impl FTEID {
         Ok(element)
     }
 
-    pub fn encode(mut self) -> Vec<u8> {}
+    pub fn encode(mut self) -> Vec<u8> {
+        let mut element_vec: Vec<u8> = Vec::new();
+        element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
+        element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
+        element_vec.push(self.mask);
+        if let Some(teid) = self.teid {
+            element_vec.append(&mut teid);
+        }
+        if let Some(ipv4_addr) = self.ipv4_addr {
+            element_vec.append(&mut ipv4_addr);
+        }
+        if let Some(ipv6_addr) = self.ipv6_addr {
+            element_vec.append(&mut ipv6_addr);
+        }
+        if let Some(choose_id) = self.choose_id {
+            element_vec.push(choose_id);
+        }
+    }
+    element_vec
 }
