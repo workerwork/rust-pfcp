@@ -2,12 +2,12 @@ use super::super::PFCPError;
 use super::ie_type;
 
 // -----------------------------------------------------------------------
-//	                    Bits	
-// Octets	8	7	6	5	4	3	2	1	
-// 1 to 2	    Type = 56 (decimal)	
-// 3 to 4	    Length = n	
-// 5 to 6	    Rule ID	
-// 7to (n+4)	These octet(s) is/are present only if explicitly specified	
+//	                    Bits
+// Octets	8	7	6	5	4	3	2	1
+// 1 to 2	    Type = 56 (decimal)
+// 3 to 4	    Length = n
+// 5 to 6	    Rule ID
+// 7to (n+4)	These octet(s) is/are present only if explicitly specified
 // -----------------------------------------------------------------------
 
 #[derive(Debug, Default)]
@@ -36,4 +36,3 @@ impl PDRID {
         element_vec
     }
 }
-

@@ -2,12 +2,12 @@ use super::super::PFCPError;
 use super::ie_type;
 
 // -----------------------------------------------------------------------
-//	                    Bits	
-// Octets	8	7	6	5	4	3	2	1	
-// 1 to 2	    Type = 29 (decimal)	
-// 3 to 4	    Length = n	
-// 5 to 8	    Precedence value	
-// 9 to (n+4)	These octet(s) is/are present only if explicitly specified	
+//	                    Bits
+// Octets	8	7	6	5	4	3	2	1
+// 1 to 2	    Type = 29 (decimal)
+// 3 to 4	    Length = n
+// 5 to 8	    Precedence value
+// 9 to (n+4)	These octet(s) is/are present only if explicitly specified
 // -----------------------------------------------------------------------
 
 #[derive(Debug, Default)]
@@ -17,7 +17,6 @@ pub struct Precedence {
     precedence: Vec<u8>, //M 4bytes
 }
 
-
 impl Precedence {
     pub fn decode(buf: &mut [u8], len: u16) -> Result<FTEID, PFCPError> {
         let mut element = Precedence {
@@ -25,7 +24,7 @@ impl Precedence {
             ie_len: len,
             ..Default::default()
         };
-        element.precedence = buf[0..=3];
+        element.precedence = buf[0..=3].to_vec();
         Ok(element)
     }
 
