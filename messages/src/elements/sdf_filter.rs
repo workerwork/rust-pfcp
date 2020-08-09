@@ -41,7 +41,7 @@ pub struct SDFFilter {
     //Bit 6 to 8: Spare, for future use and set to "0".
     mask: u8,   //M
     
-    //spare: u8,
+    spare: u8,  //M
     flow_description: Option<Vec<u8>>,  //C
     tos_traffic_class: Option<Vec<u8>>, //C 2bytes
     security_parameter_index: Option<Vec<u8>>,  //C 4bytes
@@ -57,7 +57,8 @@ impl SDFFilter {
             ..Default::default()
         };
         element.mask = buf[0];
-        buf = &mut buf[1..];
+        element.spare = buf[1];
+        buf = &mut buf[2..];
         if element.mask & 0b0000_0001 != 0 {
             let l = buf[0] * 16 + buf[1];
             element.flow_description = Some(buf[2..=l+1].to_vec());
@@ -86,6 +87,7 @@ impl SDFFilter {
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.push(self.mask);
+        element_vec.push(self.spare);
         if let Some(flow_description) = self.flow_description {
             element_vec.append(&mut flow_description);
         }
