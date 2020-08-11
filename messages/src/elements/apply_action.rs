@@ -15,7 +15,7 @@ use super::ie_type;
 pub struct ApplyAction {
     ie_type: u16,
     ie_len: u16,
-    
+
     //Bit 1 – DROP (Drop): when set to "1", this indicates a request to drop the packets.
     //
     //Bit 2 – FORW (Forward): when set to "1", this indicates a request to forward the packets.
@@ -35,7 +35,7 @@ pub struct ApplyAction {
     //
     //Bit 8 – DFRT (Duplicate for Redundant Transmission): when set to "1", this indicates a
     //request to duplicate the packets for redundant transmission.
-    action: u8,   //M
+    action: u8, //M
 
     //Bit 1 – EDRT (Eliminate Duplicate Packets for Redundant Transmission): when set to "1", this
     //indicates a request to eliminate duplicate packets used for redundant transmission.
@@ -50,7 +50,7 @@ pub struct ApplyAction {
     //Count is exceeded.
     //
     //Bit 4 to 8 – Spare, for future use and seto to "0".
-    mask: u8,   //M
+    mask: u8, //M
 }
 
 impl ApplyAction {
@@ -74,4 +74,3 @@ impl ApplyAction {
         element_vec
     }
 }
-

@@ -36,4 +36,3 @@ impl QFI {
         element_vec
     }
 }
-

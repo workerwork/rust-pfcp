@@ -13,7 +13,7 @@ use super::ie_type;
 pub struct NetworkInstance {
     ie_type: u16,
     ie_len: u16,
-    network_instance: Vec<u8>, //M 
+    network_instance: Vec<u8>, //M
 }
 
 impl NetworkInstance {
@@ -23,7 +23,7 @@ impl NetworkInstance {
             ie_len: len,
             ..Default::default()
         };
-        element.network_instance = buf[0..=element.ie_len-1].to_vec();
+        element.network_instance = buf[0..=element.ie_len - 1].to_vec();
         Ok(element)
     }
 
@@ -35,4 +35,3 @@ impl NetworkInstance {
         element_vec
     }
 }
-

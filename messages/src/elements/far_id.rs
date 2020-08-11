@@ -36,4 +36,3 @@ impl FARID {
         element_vec
     }
 }
-

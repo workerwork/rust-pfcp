@@ -20,7 +20,7 @@ use super::ie_type;
 pub struct OuterHeaderRemoval {
     ie_type: u16,
     ie_len: u16,
-    outer_header_removal_description: u8,   //M
+    outer_header_removal_description: u8,       //M
     gtpu_extension_header_deletion: Option<u8>, //C
 }
 
@@ -37,7 +37,7 @@ impl OuterHeaderRemoval {
         }
         Ok(element)
     }
-    
+
     pub fn encode(mut self) -> Vec<u8> {
         let mut element_vec: Vec<u8> = Vec::new();
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
@@ -49,4 +49,3 @@ impl OuterHeaderRemoval {
         element_vec
     }
 }
-

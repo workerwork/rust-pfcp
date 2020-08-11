@@ -36,4 +36,3 @@ impl DestinationInterface {
         element_vec
     }
 }
-

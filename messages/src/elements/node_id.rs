@@ -21,9 +21,16 @@ use super::ie_type;
 //Bit 3 to 8 are spare and reserved for future use.
 //
 //At least one of V4 and V6 shall be set to "1", and both may be set to "1".
-const NODE_ID_TYPE_IPV4: u8 = 0;
-const NODE_ID_TYPE_IPV6: u8 = 1;
-const NODE_ID_TYPE_FQDN: u8 = 2;
+
+//const NODE_ID_TYPE_IPV4: u8 = 0;
+//const NODE_ID_TYPE_IPV6: u8 = 1;
+//const NODE_ID_TYPE_FQDN: u8 = 2;
+
+pub mod node_id_type {
+    pub const IPV4: u8 = 0;
+    pub const IPV6: u8 = 1;
+    pub const FQDN: u8 = 2;
+}
 
 #[derive(Debug, Default)]
 pub struct NodeID {
@@ -34,7 +41,7 @@ pub struct NodeID {
     node_id_type: u8,
 
     //Node ID Value
-    node_id_value: Vec<u8>,
+    node_id: Vec<u8>,
 }
 
 impl NodeID {
@@ -44,18 +51,16 @@ impl NodeID {
             ie_len: len,
             ..Default::default()
         };
-        match buf[0] & 0b0000_1111 {
-            NODE_ID_TYPE_IPV4 => {
-                element.node_id_type = NODE_ID_TYPE_IPV4;
-                element.node_id_value = buf[1..=4].to_vec();
+        element.node_id_type = buf[0] & 0b0000_1111;
+        match element.node_id_type {
+            node_id_type::IPV4 => {
+                element.node_id = buf[1..=4].to_vec();
             }
-            NODE_ID_TYPE_IPV6 => {
-                element.node_id_type = NODE_ID_TYPE_IPV6;
-                element.node_id_value = buf[1..=16].to_vec();
+            node_id_type::IPV6 => {
+                element.node_id = buf[1..=16].to_vec();
             }
-            NODE_ID_TYPE_FQDN => {
-                element.node_id_type = NODE_ID_TYPE_FQDN;
-                element.node_id_value = buf[1..=2].to_vec();
+            node_id_type::FQDN => {
+                element.node_id = buf[1..=2].to_vec();
             }
             _ => return Err(PFCPError::Unknown),
         }
@@ -67,7 +72,7 @@ impl NodeID {
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.push(self.node_id_type);
-        element_vec.append(&mut self.node_id_value);
+        element_vec.append(&mut self.node_id);
         element_vec
     }
 }

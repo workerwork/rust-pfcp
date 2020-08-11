@@ -36,4 +36,3 @@ impl QERID {
         element_vec
     }
 }
-
