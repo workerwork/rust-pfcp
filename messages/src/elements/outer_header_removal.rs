@@ -20,7 +20,7 @@ use super::ie_type;
 pub struct OuterHeaderRemoval {
     ie_type: u16,
     ie_len: u16,
-    outer_header_removal_description: u8,       //M
+    description: u8,                            //M
     gtpu_extension_header_deletion: Option<u8>, //C
 }
 
@@ -31,7 +31,7 @@ impl OuterHeaderRemoval {
             ie_len: len,
             ..Default::default()
         };
-        element.outer_header_removal_description = buf[0];
+        element.description = buf[0];
         if element.len > 1 {
             element.gtpu_extension_header_deletion = Some(buf[1]);
         }
@@ -42,7 +42,7 @@ impl OuterHeaderRemoval {
         let mut element_vec: Vec<u8> = Vec::new();
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
-        element_vec.push(self.outer_header_removal_description);
+        element_vec.push(self.description);
         if let Some(gtpu_extension_header_deletion) = self.gtpu_extension_header_deletion {
             element_vec.push(gtpu_extension_header_deletion);
         }
