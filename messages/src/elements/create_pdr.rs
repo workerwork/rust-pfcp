@@ -1,7 +1,7 @@
 //use std::error::Error;
 //use anyhow::Result;
+use super::super::FCPError;
 use super::ie_type;
-use super::PFCPError;
 
 #[derive(Debug, Default)]
 pub struct CreatePDR {
@@ -48,7 +48,7 @@ pub struct CreatePDR {
     //associated to the PDR.
     qer_ids: Option<Vec<QERID>>, //C
 
-                                 //TODO
+                                 // TODO
 }
 
 impl CreatePDR {
@@ -106,8 +106,25 @@ impl CreatePDR {
         let mut element_vec: Vec<u8> = Vec::new();
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
-        element_vec.push(self.node_id_type);
-        element_vec.append(&mut self.node_id_value);
+        element_vec.append(&mut self.pdi.encode());
+        element_vec.append(&mut self.precedence.encode());
+        element_vec.append(&mut self.pdr_id.encode());
+        if let Some(outer_header_removal) = self.outer_header_removal {
+            element_vec.append(&mut outer_header_removal.encode());
+        }
+        if let Some(far_id) = self.far_id {
+            element_vec.append(&mut far_id.encode());
+        }
+        if let Some(urr_ids) = self.urr_ids {
+            for urr_id in urr_ids.iter() {
+                element_vec.append(&mut urr_id.encode());
+            }
+        }
+        if let Some(qer_ids) = self.qer_ids {
+            for qer_id in qer_ids.iter() {
+                element_vec.append(&mut qer_id.encode());
+            }
+        }
         element_vec
     }
 }

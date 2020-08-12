@@ -156,8 +156,7 @@ impl ReportingTriggers {
             mask |= 0b0010_0000;
         }
         if self.ip_multicast_join_or_leave {
-            }
-            }
+            mask |= 0b0100_0000;
         }
         if self.quota_validity_time {
             mask |= 0b1000_0000;
