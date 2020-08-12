@@ -75,10 +75,10 @@ impl CreatePDR {
                     element.pdi = PDI::decode(buf, elen)?;
                 }
                 ie_type::PRECEDENCE => {
-                    element.precedence = Precedence::decode(mut buf, elen)?;
+                    element.precedence = Precedence::decode(buf, elen)?;
                 }
                 ie_type::PDR_ID => {
-                    element.pdr_id = PDRID::decode(mut buf, elen)?;
+                    element.pdr_id = PDRID::decode(buf, elen)?;
                 }
                 ie_type::OUTER_HEADER_REMOVAL => {
                     element.outer_header_removal = Some(OuterHeaderRemoval::decode(buf, elen)?);
@@ -89,19 +89,19 @@ impl CreatePDR {
                 ie_type::URR_ID => {
                     let urr_id = URRID::decode(buf, elen)?;
                     if let Some(urr_ids) = element.urr_ids {
-                        urr_ids.append(urr_id.encode() as &mut Vec<URRID>);
+                        urr_ids.push(urr_id);
                         element.urr_ids = Some(urr_ids);
                     } else {
-                        element.urr_ids = Some(urr_id as Vec<URRID>);
+                        element.urr_ids = Some(vec![urr_id]);
                     }
                 }
                 ie_type::QER_ID => {
                     let qer_id = QERID::decode(buf, elen)?;
                     if let Some(qer_ids) = element.qer_ids {
-                        qer_ids.append(qer_id.encode() as &mut Vec<QERID>);
+                        qer_ids.push(qer_id);
                         element.qer_ids = Some(qer_ids);
                     } else {
-                        element.qer_ids = Some(qer_id as Vec<QERID>);
+                        element.qer_ids = Some(vec!(qer_id));
                     }
                 }
             }

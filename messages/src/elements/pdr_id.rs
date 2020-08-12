@@ -18,7 +18,7 @@ pub struct PDRID {
 }
 
 impl PDRID {
-    pub fn decode(buf: &mut [u8], len: u16) -> Result<PDRID, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> Result<PDRID, PFCPError> {
         let mut element = PDRID {
             ie_type: ie_type::PDR_ID,
             ie_len: len,

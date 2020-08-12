@@ -18,7 +18,7 @@ pub struct MeasurementPeriod {
 }
 
 impl MeasurementPeriod {
-    pub fn decode(buf: &mut [u8], len: u16) -> Result<MeasurementPeriod, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> Result<MeasurementPeriod, PFCPError> {
         let mut element = MeasurementPeriod {
             ie_type: ie_type::MEASUREMENT_PERIOD,
             ie_len: len,

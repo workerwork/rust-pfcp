@@ -20,7 +20,7 @@ pub struct MeasurementMethod {
 }
 
 impl MeasurementMethod {
-    pub fn decode(buf: &mut [u8], len: u16) -> Result<MeasurementMethod, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> Result<MeasurementMethod, PFCPError> {
         let mut element = MeasurementMethod {
             ie_type: ie_type::MEASUREMENT_METHOD,
             ie_len: len,
