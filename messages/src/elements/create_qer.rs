@@ -1,5 +1,8 @@
-use super::super::FCPError;
+use super::super::PFCPError;
 use super::ie_type;
+
+use super::qer_id::QERID;
+use super::gate_status::GateStatus;
 
 #[derive(Debug, Default)]
 pub struct CreateQER {
@@ -16,7 +19,7 @@ pub struct CreateQER {
                              //
 }
 
-impl CreateURR {
+impl CreateQER {
     pub fn decode(buf: &[u8], len: u16) -> Result<CreateQER, PFCPError> {
         let mut element = CreateQER {
             ie_type: ie_type::CREATE_QER,

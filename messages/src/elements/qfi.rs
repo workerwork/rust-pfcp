@@ -18,7 +18,7 @@ pub struct QFI {
 }
 
 impl QFI {
-    pub fn decode(buf: &[u8], len: u16) -> Result<NodeID, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> Result<QFI, PFCPError> {
         let mut element = QFI {
             ie_type: ie_type::QFI,
             ie_len: len,

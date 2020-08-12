@@ -18,7 +18,7 @@ pub struct Precedence {
 }
 
 impl Precedence {
-    pub fn decode(buf: &mut [u8], len: u16) -> Result<FTEID, PFCPError> {
+    pub fn decode(buf: &mut [u8], len: u16) -> Result<Precedence, PFCPError> {
         let mut element = Precedence {
             ie_type: ie_type::PRECEDENCE,
             ie_len: len,

@@ -1,5 +1,11 @@
-use super::super::FCPError;
+use super::super::PFCPError;
 use super::ie_type;
+
+use super::urr_id::URRID;
+use super::measurement_method::MeasurementMethod;
+use super::reporting_triggers::ReportingTriggers;
+use super::measurement_period::MeasurementPeriod;
+
 
 #[derive(Debug, Default)]
 pub struct CreateURR {

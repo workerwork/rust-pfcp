@@ -18,7 +18,7 @@ pub struct QERID {
 }
 
 impl QERID {
-    pub fn decode(buf: &[u8], len: u16) -> Result<NodeID, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> Result<QERID, PFCPError> {
         let mut element = QERID {
             ie_type: ie_type::QER_ID,
             ie_len: len,

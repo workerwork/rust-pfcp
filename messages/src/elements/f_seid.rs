@@ -34,7 +34,7 @@ pub struct FSEID {
 }
 
 impl FSEID {
-    pub fn decode(buf: &mut [u8], len: u16) -> Result<FTEID, PFCPError> {
+    pub fn decode(buf: &mut [u8], len: u16) -> Result<FSEID, PFCPError> {
         let mut element = FSEID {
             ie_type: ie_type::F_SEID,
             ie_len: len,

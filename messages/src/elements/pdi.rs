@@ -1,6 +1,14 @@
 use super::super::PFCPError;
 use super::ie_type;
 
+use super::source_interface::SourceInterface;
+use super::f_teid::FTEID;
+use super::network_instance::NetworkInstance;
+use super::ue_ip_address::UEIPAddress;
+use super::sdf_filter::SDFFilter;
+use super::qfi::QFI;
+use super::_3gpp_interface_type::_3GPPInterfaceType;
+
 #[derive(Debug, Default)]
 pub struct PDI {
     ie_type: u16,
@@ -74,7 +82,7 @@ impl PDI {
                 ie_type::UE_IP_ADDRESS => {
                     element.ue_ip_address = Some(UEIPAddress::decode(buf, elen)?);
                 }
-                ie_type::SDF_FILTer => {
+                ie_type::SDF_FILTER => {
                     element.sdf_filter = Some(SDFFilter::decode(buf, elen)?);
                 }
                 ie_type::QFI => {

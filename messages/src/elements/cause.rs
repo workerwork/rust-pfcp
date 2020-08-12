@@ -40,8 +40,8 @@ pub struct Cause {
 
 impl Cause {
     pub fn decode(buf: &mut [u8], len: u16) -> Result<Cause, PFCPError> {
-        let mut element = FTEID {
-            ie_type: ie_type::F_TEID,
+        let mut element = Cause {
+            ie_type: ie_type::CAUSE,
             ie_len: len,
             ..Default::default()
         };

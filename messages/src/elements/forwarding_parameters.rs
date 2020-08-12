@@ -1,17 +1,22 @@
 use super::super::PFCPError;
 use super::ie_type;
 
+use super::destination_interface::DestinationInterface;
+use super::network_instance::NetworkInstance;
+use super::transport_level_marking::TransportLevelMarking;
+use super::_3gpp_interface_type::_3GPPInterfaceType;
+
 #[derive(Debug, Default)]
 pub struct ForwardingParameters {
     ie_type: u16,
     ie_len: u16,
 
     //This IE shall identify the destination interface of the outgoing packet.
-    destination_interface: DestincationInterface, //M
+    destination_interface: DestinationInterface, //M
 
     //When present, this IE shall identify the Network instance towards which to send the outgoing
     //packet.
-    network_interface: NetworkInterface, //O
+    network_instance: NetworkInstance, //O
 
     //This IE shall be present if the UP function is required to mark the IP header with the DSCP
     //marking as defined by IETF RFC 2474 [22]. When present for EPC, it shall contain the value of
@@ -40,11 +45,11 @@ impl ForwardingParameters {
             let elen: u16 = (buf[2] * 16 + buf[3]).into();
             buf = &mut buf[4..];
             match etype {
-                ie_type::DESTINCATION_INTERFACE => {
-                    element.destination_interface = DestincationInterface::decode(buf, elen)?;
+                ie_type::DESTINATION_INTERFACE => {
+                    element.destination_interface = DestinationInterface::decode(buf, elen)?;
                 }
-                ie_type::NETWORK_INTERFACE => {
-                    element.network_interface = Some(NetworkInterface::decode(buf, elen)?);
+                ie_type::NETWORK_INSTANCE => {
+                    element.network_instance = Some(NetworkInstance::decode(buf, elen)?);
                 }
                 ie_type::TRANSPORT_LEVEL_MARKING => {
                     element.transport_level_marking =
@@ -68,7 +73,7 @@ impl ForwardingParameters {
             element_vec.append(&mut f_teid.encode());
         }
         if let Some(network_interface) = self.network_interface {
-            element_vec.append(&mut network_interface.encode());
+            element_vec.append(&mut network_instance.encode());
         }
         if let Some(transport_level_marking) = self.transport_level_marking {
             element_vec.append(&mut transport_level_marking.encode());

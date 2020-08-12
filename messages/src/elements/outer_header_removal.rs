@@ -25,7 +25,7 @@ pub struct OuterHeaderRemoval {
 }
 
 impl OuterHeaderRemoval {
-    pub fn decode(buf: &[u8], len: u16) -> Result<NodeID, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> Result<OuterHeaderRemoval, PFCPError> {
         let mut element = OuterHeaderRemoval {
             ie_type: ie_type::OUTER_HEADER_REMOVAL,
             ie_len: len,

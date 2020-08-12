@@ -50,7 +50,7 @@ pub struct SDFFilter {
 }
 
 impl SDFFilter {
-    pub fn decode(buf: &mut [u8], len: u16) -> Result<FTEID, PFCPError> {
+    pub fn decode(buf: &mut [u8], len: u16) -> Result<SDFFilter, PFCPError> {
         let mut element = SDFFilter {
             ie_type: ie_type::SDF_FILTER,
             ie_len: len,

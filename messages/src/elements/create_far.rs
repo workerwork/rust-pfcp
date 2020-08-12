@@ -1,6 +1,12 @@
 use super::super::PFCPError;
 use super::ie_type;
 
+use super::far_id::FARID;
+use super::apply_action::ApplyAction;
+use super::forwarding_parameters::ForwardingParameters;
+
+
+
 #[derive(Debug, Default)]
 pub struct CreateFAR {
     ie_type: u16,
@@ -39,7 +45,7 @@ impl CreateFAR {
                 ie_type::APPLY_ACTION => {
                     element.apply_action = ApplyAction::decode(buf, elen)?;
                 }
-                ie_type::FORWARDING_PATAMETERS => {
+                ie_type::FORWARDING_PARAMETERS => {
                     element.forwarding_parameters = Some(ForwardingParameters::decode(buf, elen)?);
                 }
             }

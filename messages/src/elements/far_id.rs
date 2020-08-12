@@ -18,7 +18,7 @@ pub struct FARID {
 }
 
 impl FARID {
-    pub fn decode(buf: &[u8], len: u16) -> Result<NodeID, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> Result<FARID, PFCPError> {
         let mut element = FARID {
             ie_type: ie_type::FAR_ID,
             ie_len: len,

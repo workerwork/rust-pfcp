@@ -59,7 +59,7 @@ pub struct UEIPAddress {
 }
 
 impl UEIPAddress {
-    pub fn decode(buf: &mut [u8], len: u16) -> Result<FTEID, PFCPError> {
+    pub fn decode(buf: &mut [u8], len: u16) -> Result<UEIPAddress, PFCPError> {
         let mut element = UEIPAddress {
             ie_type: ie_type::UE_IP_ADDRESS,
             ie_len: len,

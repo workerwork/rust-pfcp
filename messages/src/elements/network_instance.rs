@@ -17,8 +17,8 @@ pub struct NetworkInstance {
 }
 
 impl NetworkInstance {
-    pub fn decode(buf: &[u8], len: u16) -> Result<NodeID, PFCPError> {
-        let mut element = NetworkInstace {
+    pub fn decode(buf: &[u8], len: u16) -> Result<NetworkInstance, PFCPError> {
+        let mut element = NetworkInstance {
             ie_type: ie_type::NETWORK_INSTANCE,
             ie_len: len,
             ..Default::default()
