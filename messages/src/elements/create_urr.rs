@@ -28,7 +28,7 @@ pub struct CreateURR {
 
     //This IE shall be present if periodic reporting is required. When present, it shall indicate
     //the period for generating and reporting usage reports.
-    measurement_period: MeasurementPeriod, //C
+    measurement_period: Option<MeasurementPeriod>, //C
 
                                            //
 }

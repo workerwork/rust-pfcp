@@ -18,7 +18,7 @@ pub struct SourceInterface {
 }
 
 impl SourceInterface {
-    pub fn decode(buf: &mut [u8], len: u16) -> Result<SourceInterface, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> Result<SourceInterface, PFCPError> {
         let mut element = SourceInterface {
             ie_type: ie_type::SOURCE_INTERFACE,
             ie_len: len,

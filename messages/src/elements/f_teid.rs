@@ -46,7 +46,7 @@ pub struct FTEID {
 }
 
 impl FTEID {
-    pub fn decode(buf: &mut [u8], len: u16) -> Result<FTEID, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> Result<FTEID, PFCPError> {
         let mut element = FTEID {
             ie_type: ie_type::F_TEID,
             ie_len: len,
@@ -55,7 +55,7 @@ impl FTEID {
         element.mask = buf[0];
         buf = &mut buf[1..];
         if element.mask & 0b0000_0100 != 0 {
-            element.choose_id = buf[0];
+            element.choose_id = Some(buf[0]);
             buf = &mut buf[1..];
         } else {
             element.teid = Some(buf[0..=3].to_vec());
