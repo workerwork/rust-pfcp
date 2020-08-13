@@ -1,10 +1,10 @@
 use super::super::PFCPError;
 use super::ie_type;
 
+use super::_3gpp_interface_type::_3GPPInterfaceType;
 use super::destination_interface::DestinationInterface;
 use super::network_instance::NetworkInstance;
 use super::transport_level_marking::TransportLevelMarking;
-use super::_3gpp_interface_type::_3GPPInterfaceType;
 
 #[derive(Debug, Default)]
 pub struct ForwardingParameters {

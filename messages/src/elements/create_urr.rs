@@ -1,11 +1,10 @@
 use super::super::PFCPError;
 use super::ie_type;
 
-use super::urr_id::URRID;
 use super::measurement_method::MeasurementMethod;
-use super::reporting_triggers::ReportingTriggers;
 use super::measurement_period::MeasurementPeriod;
-
+use super::reporting_triggers::ReportingTriggers;
+use super::urr_id::URRID;
 
 #[derive(Debug, Default)]
 pub struct CreateURR {
@@ -30,7 +29,7 @@ pub struct CreateURR {
     //the period for generating and reporting usage reports.
     measurement_period: Option<MeasurementPeriod>, //C
 
-                                           //
+                                                   //
 }
 
 impl CreateURR {

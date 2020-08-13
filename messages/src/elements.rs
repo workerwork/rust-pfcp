@@ -155,6 +155,7 @@ pub mod ie_type {
     pub const QUOTA_VALIDITY_TIME: u16 = 181;
 }
 
+pub mod _3gpp_interface_type;
 pub mod apply_action;
 pub mod cause;
 pub mod create_far;
@@ -187,4 +188,3 @@ pub mod source_interface;
 pub mod transport_level_marking;
 pub mod ue_ip_address;
 pub mod urr_id;
-pub mod _3gpp_interface_type;

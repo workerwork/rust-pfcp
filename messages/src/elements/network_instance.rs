@@ -23,7 +23,7 @@ impl NetworkInstance {
             ie_len: len,
             ..Default::default()
         };
-        element.network_instance = buf[0..=element.ie_len - 1].to_vec();
+        element.network_instance = buf.to_vec();
         Ok(element)
     }
 

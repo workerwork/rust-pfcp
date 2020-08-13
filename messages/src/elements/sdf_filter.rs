@@ -2,19 +2,19 @@ use super::super::PFCPError;
 use super::ie_type;
 
 // -----------------------------------------------------------------------
-//	                    Bits	
-// Octets	8	7	6	5	4	3	2	1	
-// 1 to 2	    Type = 23 (decimal)	
-// 3 to 4	    Length = n	
-// 5	        Spare	BID	FL	SPI	TTC	FD	
-// 6	        Spare	
-// m to (m+1)	Length of Flow Description	
-// (m+2) to p	Flow Description	
-// s to (s+1)	ToS Traffic Class	
-// t to (t+3)	Security Parameter Index	
-// v to (v+2)	Flow Label	
-// w to (w+3)	SDF Filter ID	
-// x to (n+4)	These octet(s) is/are present only if explicitly specified	
+//	                    Bits
+// Octets	8	7	6	5	4	3	2	1
+// 1 to 2	    Type = 23 (decimal)
+// 3 to 4	    Length = n
+// 5	        Spare	BID	FL	SPI	TTC	FD
+// 6	        Spare
+// m to (m+1)	Length of Flow Description
+// (m+2) to p	Flow Description
+// s to (s+1)	ToS Traffic Class
+// t to (t+3)	Security Parameter Index
+// v to (v+2)	Flow Label
+// w to (w+3)	SDF Filter ID
+// x to (n+4)	These octet(s) is/are present only if explicitly specified
 // -----------------------------------------------------------------------
 
 #[derive(Debug, Default)]
@@ -39,14 +39,14 @@ pub struct SDFFilter {
     //shall be present, otherwise the SDF Filter ID shall not be present.
     //
     //Bit 6 to 8: Spare, for future use and set to "0".
-    mask: u8,   //M
-    
-    spare: u8,  //M
-    flow_description: Option<Vec<u8>>,  //C
-    tos_traffic_class: Option<Vec<u8>>, //C 2bytes
-    security_parameter_index: Option<Vec<u8>>,  //C 4bytes
-    flow_label: Option<Vec<u8>>,    //C 3bytes
-    sdf_filter_id: Option<Vec<u8>>, //C 4bytes
+    mask: u8, //M
+
+    spare: u8,                                 //M
+    flow_description: Option<Vec<u8>>,         //C
+    tos_traffic_class: Option<Vec<u8>>,        //C 2bytes
+    security_parameter_index: Option<Vec<u8>>, //C 4bytes
+    flow_label: Option<Vec<u8>>,               //C 3bytes
+    sdf_filter_id: Option<Vec<u8>>,            //C 4bytes
 }
 
 impl SDFFilter {
@@ -61,8 +61,8 @@ impl SDFFilter {
         buf = &mut buf[2..];
         if element.mask & 0b0000_0001 != 0 {
             let l = buf[0] * 16 + buf[1];
-            element.flow_description = Some(buf[2..=l+1].to_vec());
-            buf = &mut buf[l+2..];
+            element.flow_description = Some(buf[2..=(l + 1) as usize].to_vec());
+            buf = &mut buf[(l + 2) as usize..];
         }
         if element.mask & 0b0000_0010 != 0 {
             element.tos_traffic_class = Some(buf[0..=1].to_vec());
@@ -106,4 +106,3 @@ impl SDFFilter {
         element_vec
     }
 }
-

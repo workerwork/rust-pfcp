@@ -36,4 +36,3 @@ impl _3GPPInterfaceType {
         element_vec
     }
 }
-

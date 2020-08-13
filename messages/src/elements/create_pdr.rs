@@ -3,13 +3,13 @@
 use super::super::PFCPError;
 use super::ie_type;
 
-use super::pdr_id::PDRID;
-use super::pdi::PDI;
-use super::precedence::Precedence;
-use super::outer_header_removal::OuterHeaderRemoval;
 use super::far_id::FARID;
-use super::urr_id::URRID;
+use super::outer_header_removal::OuterHeaderRemoval;
+use super::pdi::PDI;
+use super::pdr_id::PDRID;
+use super::precedence::Precedence;
 use super::qer_id::QERID;
+use super::urr_id::URRID;
 
 #[derive(Debug, Default)]
 pub struct CreatePDR {
@@ -101,7 +101,7 @@ impl CreatePDR {
                         qer_ids.push(qer_id);
                         element.qer_ids = Some(qer_ids);
                     } else {
-                        element.qer_ids = Some(vec!(qer_id));
+                        element.qer_ids = Some(vec![qer_id]);
                     }
                 }
             }

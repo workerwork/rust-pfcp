@@ -1,8 +1,8 @@
 use super::super::PFCPError;
 use super::ie_type;
 
-use super::qer_id::QERID;
 use super::gate_status::GateStatus;
+use super::qer_id::QERID;
 
 #[derive(Debug, Default)]
 pub struct CreateQER {

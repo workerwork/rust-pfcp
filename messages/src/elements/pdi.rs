@@ -1,13 +1,13 @@
 use super::super::PFCPError;
 use super::ie_type;
 
-use super::source_interface::SourceInterface;
+use super::_3gpp_interface_type::_3GPPInterfaceType;
 use super::f_teid::FTEID;
 use super::network_instance::NetworkInstance;
-use super::ue_ip_address::UEIPAddress;
-use super::sdf_filter::SDFFilter;
 use super::qfi::QFI;
-use super::_3gpp_interface_type::_3GPPInterfaceType;
+use super::sdf_filter::SDFFilter;
+use super::source_interface::SourceInterface;
+use super::ue_ip_address::UEIPAddress;
 
 #[derive(Debug, Default)]
 pub struct PDI {

@@ -1,11 +1,9 @@
 use super::super::PFCPError;
 use super::ie_type;
 
-use super::far_id::FARID;
 use super::apply_action::ApplyAction;
+use super::far_id::FARID;
 use super::forwarding_parameters::ForwardingParameters;
-
-
 
 #[derive(Debug, Default)]
 pub struct CreateFAR {
