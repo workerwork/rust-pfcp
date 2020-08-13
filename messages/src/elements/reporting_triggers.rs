@@ -134,7 +134,7 @@ impl ReportingTriggers {
         if self.linked_usage_reporting {
             mask |= 0b1000_0000;
         }
-        element_vec.push(self.mask);
+        element_vec.push(mask);
 
         let mut mask: u8 = 0b0000_0000;
         if self.volume_quota {
@@ -161,13 +161,13 @@ impl ReportingTriggers {
         if self.quota_validity_time {
             mask |= 0b1000_0000;
         }
-        element_vec.push(self.mask);
+        element_vec.push(mask);
 
         let mut mask: u8 = 0b0000_0000;
         if self.report_the_end_marker_reception {
             mask |= 0b0000_0001;
         }
-        element_vec.push(self.mask);
+        element_vec.push(mask);
         element_vec
     }
 }

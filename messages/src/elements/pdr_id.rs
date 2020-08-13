@@ -24,7 +24,7 @@ impl PDRID {
             ie_len: len,
             ..Default::default()
         };
-        element.rule_id = buf[0..=1];
+        element.rule_id = buf[0..=1].to_vec();
         Ok(element)
     }
 

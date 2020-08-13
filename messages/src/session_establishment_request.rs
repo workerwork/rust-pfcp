@@ -50,22 +50,22 @@ impl SessionEstablishmentRequest {
                 ie_type::CREATE_PDR => {
                     message
                         .create_pdrs
-                        .append(CreatePDR::decode(buf, elen).unwrap());
+                        .push(CreatePDR::decode(buf, elen).unwrap());
                 }
                 ie_type::CREATE_FAR => {
                     message
                         .create_fars
-                        .append(CreateFAR::decode(buf, elen).unwrap());
+                        .push(CreateFAR::decode(buf, elen).unwrap());
                 }
                 ie_type::CREATE_URR => {
                     message
                         .create_urrs
-                        .append(CreateURR::decode(buf, elen).unwrap());
+                        .push(CreateURR::decode(buf, elen).unwrap());
                 }
                 ie_type::CREATE_QER => {
                     message
                         .create_qers
-                        .append(CreateQER::decode(buf, elen).unwrap());
+                        .push(CreateQER::decode(buf, elen).unwrap());
                 }
                 _ => println!(""),
             }
@@ -81,10 +81,18 @@ impl SessionEstablishmentRequest {
         message_vec.append(&mut self.node_id.encode());
         message_vec.append(&mut self.f_seid.encode());
         message_vec.append(&mut self.pdn_type.encode());
-        message_vec.append(&mut self.create_pdrs.encode());
-        message_vec.append(&mut self.create_fars.encode());
-        message_vec.append(&mut self.create_urrs.encode());
-        message_vec.append(&mut self.create_qers.encode());
+        for create_pdr in self.create_pdrs.iter() {
+            message_vec.append(&mut create_pdr.encode());
+        }
+        for create_far in self.create_fars.iter() {
+            message_vec.append(&mut create_far.encode());
+        }
+        for create_urr in self.create_urrs.iter() {
+            message_vec.append(&mut create_urr.encode());
+        }
+        for create_qer in self.create_qers.iter() {
+            message_vec.append(&mut create_qer.encode());
+        }
         println!("{:?}", message_vec);
         message_vec
     }

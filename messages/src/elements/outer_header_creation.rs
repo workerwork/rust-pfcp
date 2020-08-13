@@ -20,7 +20,7 @@ use super::ie_type;
 pub struct OuterHeaderCreation {
     ie_type: u16,
     ie_len: u16,
-    description: Vec<u8>,         //M
+    description: Vec<u8>,         //M 2bytes
     teid: Option<Vec<u8>>,        //C 4bytes
     ipv4_addr: Option<Vec<u8>>,   //C 4bytes
     ipv6_addr: Option<Vec<u8>>,   //C 16bytes
@@ -38,28 +38,28 @@ impl OuterHeaderCreation {
         };
         element.description = buf[0..=1].to_vec();
         buf = &mut buf[2..];
-        if element.description & 0b0000_0011 != 0 {
-            element.teid = buf[0..=3].to_vec();
+        if element.description[0] & 0b0000_0011 != 0 {
+            element.teid = Some(buf[0..=3].to_vec());
             buf = &mut buf[4..];
         }
-        if element.description & 0b0001_0101 != 0 {
-            element.ipv4_addr = buf[0..=3].to_vec();
+        if element.description[0] & 0b0001_0101 != 0 {
+            element.ipv4_addr = Some(buf[0..=3].to_vec());
             buf = &mut buf[4..];
         }
-        if element.description & 0b0010_1010 != 0 {
-            element.ipv6_addr = buf[0..=15].to_vec();
+        if element.description[0] & 0b0010_1010 != 0 {
+            element.ipv6_addr = Some(buf[0..=15].to_vec());
             buf = &mut buf[16..];
         }
-        if element.description & 0b0000_1111 != 0 {
-            element.port_number = buf[0..=1].to_vec();
+        if element.description[0] & 0b0000_1111 != 0 {
+            element.port_number = Some(buf[0..=1].to_vec());
             buf = &mut buf[2..];
         }
-        if element.description & 0b0100_0000 != 0 {
-            element.c_tag = buf[0..=2].to_vec();
+        if element.description[0] & 0b0100_0000 != 0 {
+            element.c_tag = Some(buf[0..=2].to_vec());
             buf = &mut buf[3..];
         }
-        if element.description & 0b1000_0000 != 0 {
-            element.s_tag = buf[0..=2].to_vec();
+        if element.description[0] & 0b1000_0000 != 0 {
+            element.s_tag = Some(buf[0..=2].to_vec());
         }
         Ok(element)
     }
@@ -68,7 +68,7 @@ impl OuterHeaderCreation {
         let mut element_vec: Vec<u8> = Vec::new();
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
-        element_vec.push(self.description);
+        element_vec.append(&mut self.description);
         if let Some(teid) = self.teid {
             element_vec.append(&mut teid);
         }
