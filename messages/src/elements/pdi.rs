@@ -118,7 +118,7 @@ impl PDI {
             element_vec.append(&mut qfi.encode());
         }
         if let Some(_3gpp_interface_type) = self._3gpp_interface_type {
-            element_vec.append(&mut _3gpp_interface_type);
+            element_vec.append(&mut _3gpp_interface_type.encode());
         }
         element_vec
     }

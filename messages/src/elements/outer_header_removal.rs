@@ -32,7 +32,7 @@ impl OuterHeaderRemoval {
             ..Default::default()
         };
         element.description = buf[0];
-        if element.len > 1 {
+        if len > 1 {
             element.gtpu_extension_header_deletion = Some(buf[1]);
         }
         Ok(element)

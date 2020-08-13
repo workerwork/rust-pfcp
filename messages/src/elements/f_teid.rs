@@ -92,6 +92,6 @@ impl FTEID {
         if let Some(choose_id) = self.choose_id {
             element_vec.push(choose_id);
         }
+        element_vec
     }
-    element_vec
 }

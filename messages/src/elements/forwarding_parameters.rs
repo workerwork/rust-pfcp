@@ -16,7 +16,7 @@ pub struct ForwardingParameters {
 
     //When present, this IE shall identify the Network instance towards which to send the outgoing
     //packet.
-    network_instance: NetworkInstance, //O
+    network_instance: Option<NetworkInstance>, //O
 
     //This IE shall be present if the UP function is required to mark the IP header with the DSCP
     //marking as defined by IETF RFC 2474 [22]. When present for EPC, it shall contain the value of
@@ -26,11 +26,11 @@ pub struct ForwardingParameters {
     //based on the 5QI, the Priority Level (if explicitly signalled), and optionally the ARP
     //priority level, of the associated QoS flow, as described in clause 5.8.2.7 of
     //3GPP TS 23.501 [28].
-    transport_level_marking: TransportLevelMarking, //O
+    transport_level_marking: Option<TransportLevelMarking>, //O
 
     //This IE may be present to indicate the 3GPP interface type of the destination interface, if
     //required by functionalities in the UP Function, e.g. for performance measurements.
-    _3gpp_interface_type: _3GPPInterfaceType, //O
+    _3gpp_interface_type: Option<_3GPPInterfaceType>, //O
 }
 
 impl ForwardingParameters {
@@ -69,17 +69,14 @@ impl ForwardingParameters {
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.append(&mut self.destination_interface.encode());
-        if let Some(f_teid) = self.f_teid {
-            element_vec.append(&mut f_teid.encode());
-        }
-        if let Some(network_interface) = self.network_interface {
+        if let Some(network_instance) = self.network_instance {
             element_vec.append(&mut network_instance.encode());
         }
         if let Some(transport_level_marking) = self.transport_level_marking {
             element_vec.append(&mut transport_level_marking.encode());
         }
         if let Some(_3gpp_interface_type) = self._3gpp_interface_type {
-            element_vec.append(&mut _3gpp_interface_type);
+            element_vec.append(&mut _3gpp_interface_type.encode());
         }
         element_vec
     }
