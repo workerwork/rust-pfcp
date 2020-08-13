@@ -37,6 +37,7 @@ impl CreateQER {
                 ie_type::GATE_STATUS => {
                     element.gate_status = GateStatus::decode(buf, elen)?;
                 }
+                _ => (),
             }
             buf = &mut buf[elen.into()..];
         }

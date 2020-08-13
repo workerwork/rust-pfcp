@@ -56,6 +56,7 @@ impl CreateURR {
                 ie_type::MEASUREMENT_PERIOD => {
                     element.measurement_period = Some(MeasurementPeriod::decode(buf, elen)?);
                 }
+                _ => (),
             }
             buf = &mut buf[elen.into()..];
         }

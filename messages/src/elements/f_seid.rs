@@ -54,6 +54,7 @@ impl FSEID {
                 element.ipv4_addr = Some(buf[0..=3].to_vec());
                 element.ipv6_addr = Some(buf[4..=19].to_vec());
             }
+            _ => (),
         }
         Ok(element)
     }

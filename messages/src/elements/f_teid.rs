@@ -56,7 +56,6 @@ impl FTEID {
         buf = &mut buf[1..];
         if element.mask & 0b0000_0100 != 0 {
             element.choose_id = Some(buf[0]);
-            buf = &mut buf[1..];
         } else {
             element.teid = Some(buf[0..=3].to_vec());
             buf = &mut buf[4..];

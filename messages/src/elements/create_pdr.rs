@@ -104,6 +104,7 @@ impl CreatePDR {
                         element.qer_ids = Some(vec![qer_id]);
                     }
                 }
+                _ => (),
             }
             buf = &mut buf[elen.into()..];
         }

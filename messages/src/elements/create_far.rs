@@ -46,6 +46,7 @@ impl CreateFAR {
                 ie_type::FORWARDING_PARAMETERS => {
                     element.forwarding_parameters = Some(ForwardingParameters::decode(buf, elen)?);
                 }
+                _ => (),
             }
             buf = &mut buf[elen.into()..];
         }

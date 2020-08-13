@@ -58,6 +58,7 @@ impl ForwardingParameters {
                 ie_type::_3GPP_INTERFACE_TYPE => {
                     element._3gpp_interface_type = Some(_3GPPInterfaceType::decode(buf, elen)?);
                 }
+                _ => (),
             }
             buf = &mut buf[elen.into()..];
         }
