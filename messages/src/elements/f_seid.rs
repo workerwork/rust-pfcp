@@ -65,12 +65,16 @@ impl FSEID {
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.push(self.mask);
         element_vec.append(&mut self.seid);
-        if let Some(mut ipv4_addr) = self.ipv4_addr {
+        /*if let Some(mut ipv4_addr) = self.ipv4_addr {
             element_vec.append(&mut ipv4_addr);
         }
         if let Some(mut ipv6_addr) = self.ipv6_addr {
             element_vec.append(&mut ipv6_addr);
-        }
+        }*/
+        self.ipv4_addr
+            .map(|mut ipv4_addr| element_vec.append(&mut ipv4_addr));
+        self.ipv6_addr
+            .map(|mut ipv6_addr| element_vec.append(&mut ipv6_addr));
         element_vec
     }
 }

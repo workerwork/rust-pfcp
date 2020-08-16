@@ -118,6 +118,7 @@ impl CreatePDR {
         element_vec.append(&mut self.pdi.encode());
         element_vec.append(&mut self.precedence.encode());
         element_vec.append(&mut self.pdr_id.encode());
+        /*
         if let Some(outer_header_removal) = self.outer_header_removal {
             element_vec.append(&mut outer_header_removal.encode());
         }
@@ -133,7 +134,22 @@ impl CreatePDR {
             for qer_id in qer_ids.into_iter() {
                 element_vec.append(&mut qer_id.encode());
             }
-        }
+        }*/
+        // use map
+        self.outer_header_removal
+            .map(|outer_header_removal| element_vec.append(&mut outer_header_removal.encode()));
+        self.far_id
+            .map(|far_id| element_vec.append(&mut far_id.encode()));
+        self.urr_ids.map(|urr_ids| {
+            for urr_id in urr_ids.into_iter() {
+                element_vec.append(&mut urr_id.encode());
+            }
+        });
+        self.qer_ids.map(|qer_ids| {
+            for qer_id in qer_ids.into_iter() {
+                element_vec.append(&mut qer_id.encode());
+            }
+        });
         element_vec
     }
 }

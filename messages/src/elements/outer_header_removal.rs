@@ -43,9 +43,11 @@ impl OuterHeaderRemoval {
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.push(self.description);
-        if let Some(gtpu_extension_header_deletion) = self.gtpu_extension_header_deletion {
+        /*if let Some(gtpu_extension_header_deletion) = self.gtpu_extension_header_deletion {
             element_vec.push(gtpu_extension_header_deletion);
-        }
+        }*/
+        self.gtpu_extension_header_deletion
+            .map(|gtpu_extension_header_deletion| element_vec.push(gtpu_extension_header_deletion));
         element_vec
     }
 }

@@ -70,7 +70,7 @@ impl ForwardingParameters {
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.append(&mut self.destination_interface.encode());
-        if let Some(network_instance) = self.network_instance {
+        /*if let Some(network_instance) = self.network_instance {
             element_vec.append(&mut network_instance.encode());
         }
         if let Some(transport_level_marking) = self.transport_level_marking {
@@ -78,7 +78,14 @@ impl ForwardingParameters {
         }
         if let Some(_3gpp_interface_type) = self._3gpp_interface_type {
             element_vec.append(&mut _3gpp_interface_type.encode());
-        }
+        }*/
+        self.network_instance
+            .map(|network_instance| element_vec.append(&mut network_instance.encode()));
+        self.transport_level_marking.map(|transport_level_marking| {
+            element_vec.append(&mut transport_level_marking.encode())
+        });
+        self._3gpp_interface_type
+            .map(|_3gpp_interface_type| element_vec.append(&mut _3gpp_interface_type.encode()));
         element_vec
     }
 }

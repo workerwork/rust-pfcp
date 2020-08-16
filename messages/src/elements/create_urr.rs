@@ -70,9 +70,11 @@ impl CreateURR {
         element_vec.append(&mut self.urr_id.encode());
         element_vec.append(&mut self.measurement_method.encode());
         element_vec.append(&mut self.reporting_triggers.encode());
-        if let Some(measurement_period) = self.measurement_period {
+        /*if let Some(measurement_period) = self.measurement_period {
             element_vec.append(&mut measurement_period.encode());
-        }
+        }*/
+        self.measurement_period
+            .map(|measurement_period| element_vec.append(&mut measurement_period.encode()));
         element_vec
     }
 }

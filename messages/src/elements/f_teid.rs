@@ -79,7 +79,7 @@ impl FTEID {
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.push(self.mask);
-        if let Some(mut teid) = self.teid {
+        /*if let Some(mut teid) = self.teid {
             element_vec.append(&mut teid);
         }
         if let Some(mut ipv4_addr) = self.ipv4_addr {
@@ -90,7 +90,13 @@ impl FTEID {
         }
         if let Some(choose_id) = self.choose_id {
             element_vec.push(choose_id);
-        }
+        }*/
+        self.teid.map(|mut teid| element_vec.append(&mut teid));
+        self.ipv4_addr
+            .map(|mut ipv4_addr| element_vec.append(&mut ipv4_addr));
+        self.ipv6_addr
+            .map(|mut ipv6_addr| element_vec.append(&mut ipv6_addr));
+        self.choose_id.map(|choose_id| element_vec.push(choose_id));
         element_vec
     }
 }

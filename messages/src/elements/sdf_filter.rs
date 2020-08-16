@@ -88,7 +88,7 @@ impl SDFFilter {
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.push(self.mask);
         element_vec.push(self.spare);
-        if let Some(mut flow_description) = self.flow_description {
+        /*if let Some(mut flow_description) = self.flow_description {
             element_vec.append(&mut flow_description);
         }
         if let Some(mut tos_traffic_class) = self.tos_traffic_class {
@@ -102,7 +102,17 @@ impl SDFFilter {
         }
         if let Some(mut sdf_filter_id) = self.sdf_filter_id {
             element_vec.append(&mut sdf_filter_id);
-        }
+        }*/
+        self.flow_description
+            .map(|mut flow_description| element_vec.append(&mut flow_description));
+        self.tos_traffic_class
+            .map(|mut tos_traffic_class| element_vec.append(&mut tos_traffic_class));
+        self.security_parameter_index
+            .map(|mut security_parameter_index| element_vec.append(&mut security_parameter_index));
+        self.flow_label
+            .map(|mut flow_label| element_vec.append(&mut flow_label));
+        self.sdf_filter_id
+            .map(|mut sdf_filter_id| element_vec.append(&mut sdf_filter_id));
         element_vec
     }
 }

@@ -69,7 +69,7 @@ impl OuterHeaderCreation {
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.append(&mut self.description);
-        if let Some(mut teid) = self.teid {
+        /*if let Some(mut teid) = self.teid {
             element_vec.append(&mut teid);
         }
         if let Some(mut ipv4_addr) = self.ipv4_addr {
@@ -85,8 +85,17 @@ impl OuterHeaderCreation {
             element_vec.append(&mut c_tag);
         }
         if let Some(mut s_tag) = self.s_tag {
-            element_vec.append(&mut s_tag)
-        }
+            element_vec.append(&mut s_tag);
+        }*/
+        self.teid.map(|mut teid| element_vec.append(&mut teid));
+        self.ipv4_addr
+            .map(|mut ipv4_addr| element_vec.append(&mut ipv4_addr));
+        self.ipv6_addr
+            .map(|mut ipv6_addr| element_vec.append(&mut ipv6_addr));
+        self.port_number
+            .map(|mut port_number| element_vec.append(&mut port_number));
+        self.c_tag.map(|mut c_tag| element_vec.append(&mut c_tag));
+        self.s_tag.map(|mut s_tag| element_vec.append(&mut s_tag));
         element_vec
     }
 }

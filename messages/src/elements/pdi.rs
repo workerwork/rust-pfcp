@@ -103,7 +103,7 @@ impl PDI {
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.append(&mut self.source_interface.encode());
-        if let Some(f_teid) = self.f_teid {
+        /*if let Some(f_teid) = self.f_teid {
             element_vec.append(&mut f_teid.encode());
         }
         if let Some(network_instance) = self.network_instance {
@@ -120,7 +120,18 @@ impl PDI {
         }
         if let Some(_3gpp_interface_type) = self._3gpp_interface_type {
             element_vec.append(&mut _3gpp_interface_type.encode());
-        }
+        }*/
+        self.f_teid
+            .map(|f_teid| element_vec.append(&mut f_teid.encode()));
+        self.network_instance
+            .map(|network_instance| element_vec.append(&mut network_instance.encode()));
+        self.ue_ip_address
+            .map(|ue_ip_address| element_vec.append(&mut ue_ip_address.encode()));
+        self.sdf_filter
+            .map(|sdf_filter| element_vec.append(&mut sdf_filter.encode()));
+        self.qfi.map(|qfi| element_vec.append(&mut qfi.encode()));
+        self._3gpp_interface_type
+            .map(|_3gpp_interface_type| element_vec.append(&mut _3gpp_interface_type.encode()));
         element_vec
     }
 }

@@ -90,7 +90,7 @@ impl UEIPAddress {
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.push(self.mask);
-        if let Some(mut ipv4_addr) = self.ipv4_addr {
+        /*if let Some(mut ipv4_addr) = self.ipv4_addr {
             element_vec.append(&mut ipv4_addr);
         }
         if let Some(mut ipv6_addr) = self.ipv6_addr {
@@ -101,7 +101,15 @@ impl UEIPAddress {
         }
         if let Some(ipv6_prefix_length) = self.ipv6_prefix_length {
             element_vec.push(ipv6_prefix_length)
-        }
+        }*/
+        self.ipv4_addr
+            .map(|mut ipv4_addr| element_vec.append(&mut ipv4_addr));
+        self.ipv6_addr
+            .map(|mut ipv6_addr| element_vec.append(&mut ipv6_addr));
+        self.ipv6_prefix_delegation
+            .map(|ipv6_prefix_delegation| element_vec.push(ipv6_prefix_delegation));
+        self.ipv6_prefix_length
+            .map(|ipv6_prefix_length| element_vec.push(ipv6_prefix_length));
         element_vec
     }
 }

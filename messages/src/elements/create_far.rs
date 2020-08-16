@@ -59,9 +59,11 @@ impl CreateFAR {
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.append(&mut self.far_id.encode());
         element_vec.append(&mut self.apply_action.encode());
-        if let Some(forwarding_parameters) = self.forwarding_parameters {
+        /*if let Some(forwarding_parameters) = self.forwarding_parameters {
             element_vec.append(&mut forwarding_parameters.encode());
-        }
+        }*/
+        self.forwarding_parameters
+            .map(|forwarding_parameters| element_vec.append(&mut forwarding_parameters.encode()));
         element_vec
     }
 }
