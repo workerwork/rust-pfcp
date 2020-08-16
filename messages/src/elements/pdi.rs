@@ -58,8 +58,10 @@ pub struct PDI {
     _3gpp_interface_type: Option<_3GPPInterfaceType>, //O
 }
 
+pub type _PDI = Result<PDI, PFCPError>;
+
 impl PDI {
-    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<PDI, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> _PDI {
         let mut element = PDI {
             ie_type: ie_type::PDI,
             ie_len: len,

@@ -38,8 +38,10 @@ pub struct ReportingTriggers {
     report_the_end_marker_reception: bool,
 }
 
+pub type _ReportingTriggers = Result<ReportingTriggers, PFCPError>;
+
 impl ReportingTriggers {
-    pub fn decode(buf: &[u8], len: u16) -> Result<ReportingTriggers, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _ReportingTriggers {
         let mut element = ReportingTriggers {
             ie_type: ie_type::REPORTING_TRIGGERS,
             ie_len: len,

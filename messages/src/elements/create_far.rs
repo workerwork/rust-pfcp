@@ -25,8 +25,10 @@ pub struct CreateFAR {
                                                          //bar_id
 }
 
+pub type _CreateFAR = Result<CreateFAR, PFCPError>;
+
 impl CreateFAR {
-    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<CreateFAR, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> _CreateFAR {
         let mut element = CreateFAR {
             ie_type: ie_type::CREATE_FAR,
             ie_len: len,

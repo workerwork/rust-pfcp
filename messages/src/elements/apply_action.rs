@@ -53,8 +53,10 @@ pub struct ApplyAction {
     mask: u8, //M
 }
 
+pub type _ApplyAction = Result<ApplyAction, PFCPError>;
+
 impl ApplyAction {
-    pub fn decode(buf: &[u8], len: u16) -> Result<ApplyAction, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _ApplyAction {
         let mut element = ApplyAction {
             ie_type: ie_type::APPLY_ACTION,
             ie_len: len,

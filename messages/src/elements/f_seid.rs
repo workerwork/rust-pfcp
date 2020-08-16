@@ -33,8 +33,10 @@ pub struct FSEID {
     ipv6_addr: Option<Vec<u8>>, //C 16bytes
 }
 
+pub type _FSEID = Result<FSEID, PFCPError>;
+
 impl FSEID {
-    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<FSEID, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> _FSEID {
         let mut element = FSEID {
             ie_type: ie_type::F_SEID,
             ie_len: len,

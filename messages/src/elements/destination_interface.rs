@@ -17,8 +17,10 @@ pub struct DestinationInterface {
     interface: u8, //M
 }
 
+pub type _DestinationInterface = Result<DestinationInterface, PFCPError>;
+
 impl DestinationInterface {
-    pub fn decode(buf: &[u8], len: u16) -> Result<DestinationInterface, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _DestinationInterface {
         let mut element = DestinationInterface {
             ie_type: ie_type::DESTINATION_INTERFACE,
             ie_len: len,

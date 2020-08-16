@@ -44,8 +44,10 @@ pub struct NodeID {
     node_id: Vec<u8>,
 }
 
+pub type _NodeID = Result<NodeID, PFCPError>;
+
 impl NodeID {
-    pub fn decode(buf: &[u8], len: u16) -> Result<NodeID, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _NodeID {
         let mut element = NodeID {
             ie_type: ie_type::NODE_ID,
             ie_len: len,

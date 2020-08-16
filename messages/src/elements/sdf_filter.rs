@@ -49,8 +49,10 @@ pub struct SDFFilter {
     sdf_filter_id: Option<Vec<u8>>,            //C 4bytes
 }
 
+pub type _SDFFilter = Result<SDFFilter, PFCPError>;
+
 impl SDFFilter {
-    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<SDFFilter, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> _SDFFilter {
         let mut element = SDFFilter {
             ie_type: ie_type::SDF_FILTER,
             ie_len: len,

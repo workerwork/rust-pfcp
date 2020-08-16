@@ -17,8 +17,10 @@ pub struct _3GPPInterfaceType {
     interface_type: u8, //M
 }
 
+pub type __3GPPInterfaceType = Result<_3GPPInterfaceType, PFCPError>;
+
 impl _3GPPInterfaceType {
-    pub fn decode(buf: &[u8], len: u16) -> Result<_3GPPInterfaceType, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> __3GPPInterfaceType {
         let mut element = _3GPPInterfaceType {
             ie_type: ie_type::_3GPP_INTERFACE_TYPE,
             ie_len: len,

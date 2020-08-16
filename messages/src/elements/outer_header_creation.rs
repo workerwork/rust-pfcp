@@ -29,8 +29,10 @@ pub struct OuterHeaderCreation {
     s_tag: Option<Vec<u8>>,       //C 3bytes
 }
 
+pub type _OuterHeaderCreation = Result<OuterHeaderCreation, PFCPError>;
+
 impl OuterHeaderCreation {
-    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<OuterHeaderCreation, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> _OuterHeaderCreation {
         let mut element = OuterHeaderCreation {
             ie_type: ie_type::OUTER_HEADER_CREATION,
             ie_len: len,

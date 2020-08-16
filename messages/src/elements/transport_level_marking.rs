@@ -17,8 +17,10 @@ pub struct TransportLevelMarking {
     tos_or_traffic_class: Vec<u8>, //M 2bytes
 }
 
+pub type _TransportLevelMarking = Result<TransportLevelMarking, PFCPError>;
+
 impl TransportLevelMarking {
-    pub fn decode(buf: &[u8], len: u16) -> Result<TransportLevelMarking, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _TransportLevelMarking {
         let mut element = TransportLevelMarking {
             ie_type: ie_type::TRANSPORT_LEVEL_MARKING,
             ie_len: len,

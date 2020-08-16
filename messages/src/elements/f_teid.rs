@@ -45,8 +45,10 @@ pub struct FTEID {
     choose_id: Option<u8>,      //C
 }
 
+pub type _FTEID = Result<FTEID, PFCPError>;
+
 impl FTEID {
-    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<FTEID, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> _FTEID {
         let mut element = FTEID {
             ie_type: ie_type::F_TEID,
             ie_len: len,

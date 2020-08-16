@@ -17,8 +17,10 @@ pub struct Precedence {
     precedence: Vec<u8>, //M 4bytes
 }
 
+pub type _Precedence = Result<Precedence, PFCPError>;
+
 impl Precedence {
-    pub fn decode(buf: &[u8], len: u16) -> Result<Precedence, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _Precedence {
         let mut element = Precedence {
             ie_type: ie_type::PRECEDENCE,
             ie_len: len,

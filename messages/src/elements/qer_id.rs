@@ -17,8 +17,10 @@ pub struct QERID {
     qer_id: Vec<u8>, //M 4bytes
 }
 
+pub type _QERID = Result<QERID, PFCPError>;
+
 impl QERID {
-    pub fn decode(buf: &[u8], len: u16) -> Result<QERID, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _QERID {
         let mut element = QERID {
             ie_type: ie_type::QER_ID,
             ie_len: len,

@@ -17,8 +17,10 @@ pub struct FARID {
     far_id: Vec<u8>, //M 4bytes
 }
 
+pub type _FARID = Result<FARID, PFCPError>;
+
 impl FARID {
-    pub fn decode(buf: &[u8], len: u16) -> Result<FARID, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _FARID {
         let mut element = FARID {
             ie_type: ie_type::FAR_ID,
             ie_len: len,

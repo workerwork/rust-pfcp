@@ -59,8 +59,10 @@ pub struct CreatePDR {
                                  // TODO
 }
 
+pub type _CreatePDR = Result<CreatePDR, PFCPError>;
+
 impl CreatePDR {
-    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<CreatePDR, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> _CreatePDR {
         let mut element = CreatePDR {
             ie_type: ie_type::CREATE_PDR,
             ie_len: len,

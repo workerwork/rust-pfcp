@@ -17,8 +17,10 @@ pub struct URRID {
     urr_id: Vec<u8>, //M 4bytes
 }
 
+pub type _URRID = Result<URRID, PFCPError>;
+
 impl URRID {
-    pub fn decode(buf: &[u8], len: u16) -> Result<URRID, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _URRID {
         let mut element = URRID {
             ie_type: ie_type::URR_ID,
             ie_len: len,

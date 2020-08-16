@@ -17,8 +17,10 @@ pub struct PDRID {
     rule_id: Vec<u8>, //M 2bytes
 }
 
+pub type _PDRID = Result<PDRID, PFCPError>;
+
 impl PDRID {
-    pub fn decode(buf: &[u8], len: u16) -> Result<PDRID, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _PDRID {
         let mut element = PDRID {
             ie_type: ie_type::PDR_ID,
             ie_len: len,

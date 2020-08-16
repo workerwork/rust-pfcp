@@ -17,8 +17,10 @@ pub struct MeasurementPeriod {
     measurement_period: Vec<u8>, //M 4bytes
 }
 
+pub type _MeasurementPeriod = Result<MeasurementPeriod, PFCPError>;
+
 impl MeasurementPeriod {
-    pub fn decode(buf: &[u8], len: u16) -> Result<MeasurementPeriod, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _MeasurementPeriod {
         let mut element = MeasurementPeriod {
             ie_type: ie_type::MEASUREMENT_PERIOD,
             ie_len: len,

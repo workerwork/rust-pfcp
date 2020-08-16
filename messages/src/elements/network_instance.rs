@@ -16,8 +16,10 @@ pub struct NetworkInstance {
     network_instance: Vec<u8>, //M
 }
 
+pub type _NetworkInstance = Result<NetworkInstance, PFCPError>;
+
 impl NetworkInstance {
-    pub fn decode(buf: &[u8], len: u16) -> Result<NetworkInstance, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _NetworkInstance {
         let mut element = NetworkInstance {
             ie_type: ie_type::NETWORK_INSTANCE,
             ie_len: len,

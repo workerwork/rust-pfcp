@@ -58,8 +58,10 @@ pub struct UEIPAddress {
     ipv6_prefix_length: Option<u8>,     //C
 }
 
+pub type _UEIPAddress = Result<UEIPAddress, PFCPError>;
+
 impl UEIPAddress {
-    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<UEIPAddress, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> _UEIPAddress {
         let mut element = UEIPAddress {
             ie_type: ie_type::UE_IP_ADDRESS,
             ie_len: len,

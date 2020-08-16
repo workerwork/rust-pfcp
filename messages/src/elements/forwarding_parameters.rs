@@ -33,8 +33,10 @@ pub struct ForwardingParameters {
     _3gpp_interface_type: Option<_3GPPInterfaceType>, //O
 }
 
+pub type _ForwardingParameters = Result<ForwardingParameters, PFCPError>;
+
 impl ForwardingParameters {
-    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<ForwardingParameters, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> _ForwardingParameters {
         let mut element = ForwardingParameters {
             ie_type: ie_type::FORWARDING_PARAMETERS,
             ie_len: len,

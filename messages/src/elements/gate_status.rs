@@ -23,8 +23,10 @@ pub struct GateStatus {
     dl_gate: u8,
 }
 
+pub type _GateStatus = Result<GateStatus, PFCPError>;
+
 impl GateStatus {
-    pub fn decode(buf: &[u8], len: u16) -> Result<GateStatus, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _GateStatus {
         let mut element = GateStatus {
             ie_type: ie_type::GATE_STATUS,
             ie_len: len,

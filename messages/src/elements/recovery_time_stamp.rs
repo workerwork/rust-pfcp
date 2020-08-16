@@ -19,8 +19,10 @@ pub struct RecoveryTimeStamp {
     recovery_time_stamp: Vec<u8>, //4bytes
 }
 
+pub type _RecoveryTimeStamp = Result<RecoveryTimeStamp, PFCPError>;
+
 impl RecoveryTimeStamp {
-    pub fn decode(buf: &[u8], len: u16) -> Result<RecoveryTimeStamp, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _RecoveryTimeStamp {
         let recovery_time_stamp = RecoveryTimeStamp {
             ie_type: ie_type::RECOVERY_TIME_STAMP,
             ie_len: len,

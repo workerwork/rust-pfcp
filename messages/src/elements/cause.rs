@@ -38,8 +38,10 @@ pub struct Cause {
     cause: u8,
 }
 
+pub type _Cause = Result<Cause, PFCPError>;
+
 impl Cause {
-    pub fn decode(buf: &mut [u8], len: u16) -> Result<Cause, PFCPError> {
+    pub fn decode(buf: &mut [u8], len: u16) -> _Cause {
         let mut element = Cause {
             ie_type: ie_type::CAUSE,
             ie_len: len,

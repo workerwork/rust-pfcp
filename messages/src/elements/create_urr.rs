@@ -32,8 +32,10 @@ pub struct CreateURR {
                                                    //
 }
 
+pub type _CreateURR = Result<CreateURR, PFCPError>;
+
 impl CreateURR {
-    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<CreateURR, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> _CreateURR {
         let mut element = CreateURR {
             ie_type: ie_type::CREATE_URR,
             ie_len: len,

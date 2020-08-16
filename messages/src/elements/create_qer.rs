@@ -19,8 +19,10 @@ pub struct CreateQER {
                              //
 }
 
+pub type _CreateQER = Result<CreateQER, PFCPError>;
+
 impl CreateQER {
-    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<CreateQER, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> _CreateQER {
         let mut element = CreateQER {
             ie_type: ie_type::CREATE_QER,
             ie_len: len,

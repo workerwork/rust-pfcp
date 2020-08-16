@@ -19,8 +19,10 @@ pub struct MBR {
     dl_mbr: Vec<u8>, //M 5bytes
 }
 
+pub type _MBR = Result<MBR, PFCPError>;
+
 impl MBR {
-    pub fn decode(buf: &mut [u8], len: u16) -> Result<MBR, PFCPError> {
+    pub fn decode(buf: &mut [u8], len: u16) -> _MBR {
         let mut element = MBR {
             ie_type: ie_type::MBR,
             ie_len: len,

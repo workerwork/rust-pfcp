@@ -24,8 +24,10 @@ pub struct OuterHeaderRemoval {
     gtpu_extension_header_deletion: Option<u8>, //C
 }
 
+pub type _OuterHeaderRemoval = Result<OuterHeaderRemoval, PFCPError>;
+
 impl OuterHeaderRemoval {
-    pub fn decode(buf: &[u8], len: u16) -> Result<OuterHeaderRemoval, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _OuterHeaderRemoval {
         let mut element = OuterHeaderRemoval {
             ie_type: ie_type::OUTER_HEADER_REMOVAL,
             ie_len: len,

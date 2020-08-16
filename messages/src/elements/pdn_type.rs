@@ -17,8 +17,10 @@ pub struct PDNType {
     pdn_type: u8,
 }
 
+pub type _PDNType = Result<PDNType, PFCPError>;
+
 impl PDNType {
-    pub fn decode(buf: &[u8], len: u16) -> Result<PDNType, PFCPError> {
+    pub fn decode(buf: &[u8], len: u16) -> _PDNType {
         let mut element = PDNType {
             ie_type: ie_type::PDN_TYPE,
             ie_len: len,
