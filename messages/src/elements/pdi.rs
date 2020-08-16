@@ -59,7 +59,7 @@ pub struct PDI {
 }
 
 impl PDI {
-    pub fn decode(buf: &[u8], len: u16) -> Result<PDI, PFCPError> {
+    pub fn decode(mut buf: &mut[u8], len: u16) -> Result<PDI, PFCPError> {
         let mut element = PDI {
             ie_type: ie_type::PDI,
             ie_len: len,

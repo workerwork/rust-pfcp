@@ -50,7 +50,7 @@ pub struct SDFFilter {
 }
 
 impl SDFFilter {
-    pub fn decode(buf: &[u8], len: u16) -> Result<SDFFilter, PFCPError> {
+    pub fn decode(mut buf: &mut[u8], len: u16) -> Result<SDFFilter, PFCPError> {
         let mut element = SDFFilter {
             ie_type: ie_type::SDF_FILTER,
             ie_len: len,
@@ -88,19 +88,19 @@ impl SDFFilter {
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.push(self.mask);
         element_vec.push(self.spare);
-        if let Some(flow_description) = self.flow_description {
+        if let Some(mut flow_description) = self.flow_description {
             element_vec.append(&mut flow_description);
         }
-        if let Some(tos_traffic_class) = self.tos_traffic_class {
+        if let Some(mut tos_traffic_class) = self.tos_traffic_class {
             element_vec.append(&mut tos_traffic_class);
         }
-        if let Some(security_parameter_index) = self.security_parameter_index {
+        if let Some(mut security_parameter_index) = self.security_parameter_index {
             element_vec.append(&mut security_parameter_index);
         }
-        if let Some(flow_label) = self.flow_label {
+        if let Some(mut flow_label) = self.flow_label {
             element_vec.append(&mut flow_label);
         }
-        if let Some(sdf_filter_id) = self.sdf_filter_id {
+        if let Some(mut sdf_filter_id) = self.sdf_filter_id {
             element_vec.append(&mut sdf_filter_id);
         }
         element_vec

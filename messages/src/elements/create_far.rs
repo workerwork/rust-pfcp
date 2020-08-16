@@ -26,7 +26,7 @@ pub struct CreateFAR {
 }
 
 impl CreateFAR {
-    pub fn decode(buf: &[u8], len: u16) -> Result<CreateFAR, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<CreateFAR, PFCPError> {
         let mut element = CreateFAR {
             ie_type: ie_type::CREATE_FAR,
             ie_len: len,

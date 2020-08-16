@@ -30,7 +30,7 @@ pub struct OuterHeaderCreation {
 }
 
 impl OuterHeaderCreation {
-    pub fn decode(buf: &[u8], len: u16) -> Result<OuterHeaderCreation, PFCPError> {
+    pub fn decode(mut buf: &mut[u8], len: u16) -> Result<OuterHeaderCreation, PFCPError> {
         let mut element = OuterHeaderCreation {
             ie_type: ie_type::OUTER_HEADER_CREATION,
             ie_len: len,
@@ -69,22 +69,22 @@ impl OuterHeaderCreation {
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.append(&mut self.description);
-        if let Some(teid) = self.teid {
+        if let Some(mut teid) = self.teid {
             element_vec.append(&mut teid);
         }
-        if let Some(ipv4_addr) = self.ipv4_addr {
+        if let Some(mut ipv4_addr) = self.ipv4_addr {
             element_vec.append(&mut ipv4_addr);
         }
-        if let Some(ipv6_addr) = self.ipv6_addr {
+        if let Some(mut ipv6_addr) = self.ipv6_addr {
             element_vec.append(&mut ipv6_addr);
         }
-        if let Some(port_number) = self.port_number {
+        if let Some(mut port_number) = self.port_number {
             element_vec.append(&mut port_number);
         }
-        if let Some(c_tag) = self.c_tag {
+        if let Some(mut c_tag) = self.c_tag {
             element_vec.append(&mut c_tag);
         }
-        if let Some(s_tag) = self.s_tag {
+        if let Some(mut s_tag) = self.s_tag {
             element_vec.append(&mut s_tag)
         }
         element_vec

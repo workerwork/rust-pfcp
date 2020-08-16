@@ -60,7 +60,7 @@ pub struct CreatePDR {
 }
 
 impl CreatePDR {
-    pub fn decode(buf: &[u8], len: u16) -> Result<CreatePDR, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<CreatePDR, PFCPError> {
         let mut element = CreatePDR {
             ie_type: ie_type::CREATE_PDR,
             ie_len: len,
@@ -88,7 +88,7 @@ impl CreatePDR {
                 }
                 ie_type::URR_ID => {
                     let urr_id = URRID::decode(buf, elen)?;
-                    if let Some(urr_ids) = element.urr_ids {
+                    if let Some(mut urr_ids) = element.urr_ids {
                         urr_ids.push(urr_id);
                         element.urr_ids = Some(urr_ids);
                     } else {
@@ -97,7 +97,7 @@ impl CreatePDR {
                 }
                 ie_type::QER_ID => {
                     let qer_id = QERID::decode(buf, elen)?;
-                    if let Some(qer_ids) = element.qer_ids {
+                    if let Some(mut qer_ids) = element.qer_ids {
                         qer_ids.push(qer_id);
                         element.qer_ids = Some(qer_ids);
                     } else {

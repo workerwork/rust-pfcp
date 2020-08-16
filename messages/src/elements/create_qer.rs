@@ -20,7 +20,7 @@ pub struct CreateQER {
 }
 
 impl CreateQER {
-    pub fn decode(buf: &[u8], len: u16) -> Result<CreateQER, PFCPError> {
+    pub fn decode(mut buf: &mut[u8], len: u16) -> Result<CreateQER, PFCPError> {
         let mut element = CreateQER {
             ie_type: ie_type::CREATE_QER,
             ie_len: len,

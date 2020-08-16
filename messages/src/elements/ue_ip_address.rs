@@ -59,7 +59,7 @@ pub struct UEIPAddress {
 }
 
 impl UEIPAddress {
-    pub fn decode(buf: &[u8], len: u16) -> Result<UEIPAddress, PFCPError> {
+    pub fn decode(mut buf: &mut[u8], len: u16) -> Result<UEIPAddress, PFCPError> {
         let mut element = UEIPAddress {
             ie_type: ie_type::UE_IP_ADDRESS,
             ie_len: len,
@@ -90,10 +90,10 @@ impl UEIPAddress {
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.push(self.mask);
-        if let Some(ipv4_addr) = self.ipv4_addr {
+        if let Some(mut ipv4_addr) = self.ipv4_addr {
             element_vec.append(&mut ipv4_addr);
         }
-        if let Some(ipv6_addr) = self.ipv6_addr {
+        if let Some(mut ipv6_addr) = self.ipv6_addr {
             element_vec.append(&mut ipv6_addr);
         }
         if let Some(iPv6_prefix_delegation) = self.iPv6_prefix_delegation {

@@ -34,7 +34,7 @@ pub struct FSEID {
 }
 
 impl FSEID {
-    pub fn decode(buf: &mut [u8], len: u16) -> Result<FSEID, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<FSEID, PFCPError> {
         let mut element = FSEID {
             ie_type: ie_type::F_SEID,
             ie_len: len,
@@ -65,10 +65,10 @@ impl FSEID {
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
         element_vec.push(self.mask);
         element_vec.append(&mut self.seid);
-        if let Some(ipv4_addr) = self.ipv4_addr {
+        if let Some(mut ipv4_addr) = self.ipv4_addr {
             element_vec.append(&mut ipv4_addr);
         }
-        if let Some(ipv6_addr) = self.ipv6_addr {
+        if let Some(mut ipv6_addr) = self.ipv6_addr {
             element_vec.append(&mut ipv6_addr);
         }
         element_vec
