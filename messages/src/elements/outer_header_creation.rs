@@ -30,7 +30,7 @@ pub struct OuterHeaderCreation {
 }
 
 impl OuterHeaderCreation {
-    pub fn decode(mut buf: &mut[u8], len: u16) -> Result<OuterHeaderCreation, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<OuterHeaderCreation, PFCPError> {
         let mut element = OuterHeaderCreation {
             ie_type: ie_type::OUTER_HEADER_CREATION,
             ie_len: len,

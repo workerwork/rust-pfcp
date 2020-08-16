@@ -34,7 +34,7 @@ pub struct ForwardingParameters {
 }
 
 impl ForwardingParameters {
-    pub fn decode(mut buf: &mut[u8], len: u16) -> Result<ForwardingParameters, PFCPError> {
+    pub fn decode(mut buf: &mut [u8], len: u16) -> Result<ForwardingParameters, PFCPError> {
         let mut element = ForwardingParameters {
             ie_type: ie_type::FORWARDING_PARAMETERS,
             ie_len: len,
