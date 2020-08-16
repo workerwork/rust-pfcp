@@ -125,12 +125,12 @@ impl CreatePDR {
             element_vec.append(&mut far_id.encode());
         }
         if let Some(urr_ids) = self.urr_ids {
-            for urr_id in urr_ids.iter() {
+            for urr_id in urr_ids.into_iter() {
                 element_vec.append(&mut urr_id.encode());
             }
         }
         if let Some(qer_ids) = self.qer_ids {
-            for qer_id in qer_ids.iter() {
+            for qer_id in qer_ids.into_iter() {
                 element_vec.append(&mut qer_id.encode());
             }
         }

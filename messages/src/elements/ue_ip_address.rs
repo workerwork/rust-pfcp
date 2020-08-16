@@ -54,7 +54,7 @@ pub struct UEIPAddress {
 
     ipv4_addr: Option<Vec<u8>>,         //C 4bytes
     ipv6_addr: Option<Vec<u8>>,         //C 16bytes
-    iPv6_prefix_delegation: Option<u8>, //C
+    ipv6_prefix_delegation: Option<u8>, //C
     ipv6_prefix_length: Option<u8>,     //C
 }
 
@@ -76,7 +76,7 @@ impl UEIPAddress {
             buf = &mut buf[16..];
         }
         if element.mask & 0b0000_1000 != 0 {
-            element.iPv6_prefix_delegation = Some(buf[0]);
+            element.ipv6_prefix_delegation = Some(buf[0]);
             buf = &mut buf[1..];
         }
         if element.mask & 0b0100_0000 != 0 {
@@ -96,8 +96,8 @@ impl UEIPAddress {
         if let Some(mut ipv6_addr) = self.ipv6_addr {
             element_vec.append(&mut ipv6_addr);
         }
-        if let Some(iPv6_prefix_delegation) = self.iPv6_prefix_delegation {
-            element_vec.push(iPv6_prefix_delegation)
+        if let Some(ipv6_prefix_delegation) = self.ipv6_prefix_delegation {
+            element_vec.push(ipv6_prefix_delegation)
         }
         if let Some(ipv6_prefix_length) = self.ipv6_prefix_length {
             element_vec.push(ipv6_prefix_length)

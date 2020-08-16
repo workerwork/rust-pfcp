@@ -81,16 +81,16 @@ impl SessionEstablishmentRequest {
         message_vec.append(&mut self.node_id.encode());
         message_vec.append(&mut self.f_seid.encode());
         message_vec.append(&mut self.pdn_type.encode());
-        for create_pdr in self.create_pdrs.iter() {
+        for create_pdr in self.create_pdrs.into_iter() {
             message_vec.append(&mut create_pdr.encode());
         }
-        for create_far in self.create_fars.iter() {
+        for create_far in self.create_fars.into_iter() {
             message_vec.append(&mut create_far.encode());
         }
-        for create_urr in self.create_urrs.iter() {
+        for create_urr in self.create_urrs.into_iter() {
             message_vec.append(&mut create_urr.encode());
         }
-        for create_qer in self.create_qers.iter() {
+        for create_qer in self.create_qers.into_iter() {
             message_vec.append(&mut create_qer.encode());
         }
         println!("{:?}", message_vec);
