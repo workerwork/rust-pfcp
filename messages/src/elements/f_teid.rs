@@ -74,7 +74,7 @@ impl FTEID {
         Ok(element)
     }
 
-    pub fn encode(mut self) -> Vec<u8> {
+    pub fn encode(self) -> Vec<u8> {
         let mut element_vec: Vec<u8> = Vec::new();
         element_vec.append(&mut self.ie_type.to_be_bytes().to_vec());
         element_vec.append(&mut self.ie_len.to_be_bytes().to_vec());
