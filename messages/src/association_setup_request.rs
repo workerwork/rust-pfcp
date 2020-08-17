@@ -1,8 +1,9 @@
 use super::header::*;
 use super::*;
+
 use elements::ie_type;
-use elements::node_id::*;
-use elements::recovery_time_stamp::*;
+use elements::node_id::NodeID;
+use elements::recovery_time_stamp::RecoveryTimeStamp;
 
 #[derive(Debug, Default)]
 pub struct AssociationSetupRequest {
