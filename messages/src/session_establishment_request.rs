@@ -1,4 +1,4 @@
-use super::header::*;
+use super::header::Header;
 use super::*;
 
 use elements::ie_type;
@@ -22,8 +22,10 @@ pub struct SessionEstablishmentRequest {
     pub create_qers: Vec<CreateQER>,
 }
 
+pub type _Message = Result<Message, PFCPError>;
+
 impl SessionEstablishmentRequest {
-    pub fn parse(mut buf: &mut [u8], header: Header) -> Message {
+    pub fn parse(mut buf: &mut [u8], header: Header) -> _Message {
         let mut message = SessionEstablishmentRequest {
             header,
             ..Default::default()
@@ -39,40 +41,40 @@ impl SessionEstablishmentRequest {
             buf = &mut buf[4..];
             match etype {
                 ie_type::NODE_ID => {
-                    message.node_id = NodeID::decode(buf, elen).unwrap();
+                    message.node_id = NodeID::decode(buf, elen)?;
                 }
                 ie_type::F_SEID => {
-                    message.f_seid = FSEID::decode(buf, elen).unwrap();
+                    message.f_seid = FSEID::decode(buf, elen)?;
                 }
                 ie_type::PDN_TYPE => {
-                    message.pdn_type = PDNType::decode(buf, elen).unwrap();
+                    message.pdn_type = PDNType::decode(buf, elen)?;
                 }
                 ie_type::CREATE_PDR => {
                     message
                         .create_pdrs
-                        .push(CreatePDR::decode(buf, elen).unwrap());
+                        .push(CreatePDR::decode(buf, elen)?);
                 }
                 ie_type::CREATE_FAR => {
                     message
                         .create_fars
-                        .push(CreateFAR::decode(buf, elen).unwrap());
+                        .push(CreateFAR::decode(buf, elen)?);
                 }
                 ie_type::CREATE_URR => {
                     message
                         .create_urrs
-                        .push(CreateURR::decode(buf, elen).unwrap());
+                        .push(CreateURR::decode(buf, elen)?);
                 }
                 ie_type::CREATE_QER => {
                     message
                         .create_qers
-                        .push(CreateQER::decode(buf, elen).unwrap());
+                        .push(CreateQER::decode(buf, elen)?);
                 }
                 _ => println!(""),
             }
             buf = &mut buf[elen.into()..];
         }
         println!("{:#?}", message);
-        Message::SER(message)
+        Ok(Message::SER(message))
     }
 
     pub fn pack(self) -> Vec<u8> {

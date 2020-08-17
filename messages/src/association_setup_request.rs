@@ -13,7 +13,7 @@ pub struct AssociationSetupRequest {
 }
 
 impl AssociationSetupRequest {
-    pub fn parse(mut buf: &mut [u8], header: Header) -> Message {
+    pub fn parse(mut buf: &mut [u8], header: Header) -> _Message {
         let mut message = AssociationSetupRequest {
             header,
             ..Default::default()
@@ -29,17 +29,17 @@ impl AssociationSetupRequest {
             buf = &mut buf[4..];
             match etype {
                 ie_type::NODE_ID => {
-                    message.node_id = NodeID::decode(buf, elen).unwrap();
+                    message.node_id = NodeID::decode(buf, elen)?;
                 }
                 ie_type::RECOVERY_TIME_STAMP => {
-                    message.recovery_time_stamp = RecoveryTimeStamp::decode(buf, elen).unwrap();
+                    message.recovery_time_stamp = RecoveryTimeStamp::decode(buf, elen)?;
                 }
                 _ => println!(""),
             }
             buf = &mut buf[elen.into()..];
         }
         println!("{:#?}", message);
-        Message::ASR(message)
+        Ok(Message::ASR(message))
     }
 
     pub fn pack(self) -> Vec<u8> {

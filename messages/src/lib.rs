@@ -80,7 +80,7 @@ impl Message {
             buf = &mut buf[4..];
         }
         match header.msg_t {
-            msg_type::ASSOCIATION_SETUP_REQUEST => AssociationSetupRequest::parse(buf, header),
+            msg_type::ASSOCIATION_SETUP_REQUEST => AssociationSetupRequest::parse(buf, header).unwrap(),
             //msg_type::ASSOCIATION_UPDATE_REQUEST => AssociationUpdateRequest::parse(buf, header),
             //msg_type::ASSOCIATION_RELEASE_REQUEST => AssociationReleaseRequest::parse(buf, header),
             //msg_type::SESSION_ESTABLISHMENT_REQUEST => {
@@ -90,7 +90,7 @@ impl Message {
             //msg_type::SESSION_DELETION_REQUEST => SessionDeletionRequest::parse(buf, header),
             _ => {
                 println!("err");
-                AssociationSetupRequest::parse(buf, header)
+                AssociationSetupRequest::parse(buf, header).unwrap()
             }
         }
     }
