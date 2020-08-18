@@ -7,10 +7,10 @@ pub mod session_deletion_request;
 pub mod session_establishment_request;
 pub mod session_modification_request;
 
+use header::Header;
 use association_release_request::*;
 use association_setup_request::*;
 use association_update_request::*;
-use header::*;
 use session_deletion_request::*;
 use session_establishment_request::*;
 use session_modification_request::*;
@@ -83,9 +83,9 @@ impl Message {
             msg_type::ASSOCIATION_SETUP_REQUEST => AssociationSetupRequest::parse(buf, header).unwrap(),
             //msg_type::ASSOCIATION_UPDATE_REQUEST => AssociationUpdateRequest::parse(buf, header),
             //msg_type::ASSOCIATION_RELEASE_REQUEST => AssociationReleaseRequest::parse(buf, header),
-            //msg_type::SESSION_ESTABLISHMENT_REQUEST => {
-            //    SessionEstablishmentRequest::parse(buf, header)
-            //}
+            msg_type::SESSION_ESTABLISHMENT_REQUEST => {
+                SessionEstablishmentRequest::parse(buf, header).unwrap()
+            }
             //msg_type::SESSION_MODIFICATION_REQUEST => SessionModificationRequest::parse(buf, header),
             //msg_type::SESSION_DELETION_REQUEST => SessionDeletionRequest::parse(buf, header),
             _ => {
