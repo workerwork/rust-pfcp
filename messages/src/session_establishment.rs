@@ -1,6 +1,7 @@
 use super::header::Header;
 use super::*;
 
+use elements::cause::Cause;
 use elements::create_far::CreateFAR;
 use elements::create_pdr::CreatePDR;
 use elements::create_qer::CreateQER;
@@ -21,8 +22,6 @@ pub struct SessionEstablishmentRequest {
     pub create_urrs: Vec<CreateURR>,
     pub create_qers: Vec<CreateQER>,
 }
-
-pub type _Message = Result<Message, PFCPError>;
 
 impl SessionEstablishmentRequest {
     pub fn parse(mut buf: &mut [u8], header: Header) -> _Message {
@@ -66,7 +65,7 @@ impl SessionEstablishmentRequest {
             buf = &mut buf[elen.into()..];
         }
         println!("{:#?}", message);
-        Ok(Message::SER(message))
+        Ok(Message::SEReq(message))
     }
 
     pub fn pack(self) -> Vec<u8> {
@@ -87,6 +86,58 @@ impl SessionEstablishmentRequest {
         for create_qer in self.create_qers.into_iter() {
             message_vec.append(&mut create_qer.encode());
         }
+        println!("{:?}", message_vec);
+        message_vec
+    }
+}
+
+#[derive(Debug, Default)]
+pub struct SessionEstablishmentResponse {
+    pub header: Header,
+    pub node_id: NodeID,
+    pub f_seid: FSEID,
+    pub cause: Cause,
+}
+
+impl SessionEstablishmentResponse {
+    pub fn parse(mut buf: &mut [u8], header: Header) -> _Message {
+        let mut message = SessionEstablishmentResponse {
+            header,
+            ..Default::default()
+        };
+        if message.header.s == true {
+            buf = &mut buf[12..];
+        } else {
+            buf = &mut buf[4..];
+        }
+        while buf != [] {
+            let etype: u16 = (buf[0] * 16 + buf[1]).into();
+            let elen: u16 = (buf[2] * 16 + buf[3]).into();
+            buf = &mut buf[4..];
+            match etype {
+                ie_type::NODE_ID => {
+                    message.node_id = NodeID::decode(buf, elen)?;
+                }
+                ie_type::F_SEID => {
+                    message.f_seid = FSEID::decode(buf, elen)?;
+                }
+                ie_type::CAUSE => {
+                    message.cause = Cause::decode(buf, elen)?;
+                }
+                _ => println!(""),
+            }
+            buf = &mut buf[elen.into()..];
+        }
+        println!("{:#?}", message);
+        Ok(Message::SEResp(message))
+    }
+
+    pub fn pack(self) -> Vec<u8> {
+        let mut message_vec: Vec<u8> = Vec::new();
+        message_vec.append(&mut self.header.pack());
+        message_vec.append(&mut self.node_id.encode());
+        message_vec.append(&mut self.f_seid.encode());
+        message_vec.append(&mut self.cause.encode());
         println!("{:?}", message_vec);
         message_vec
     }

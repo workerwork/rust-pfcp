@@ -62,16 +62,25 @@ pub enum PFCPError {
     UnknownCreatePDR,
 }
 
+pub type _Message = Result<Message, PFCPError>;
+
 #[derive(Debug)]
 pub enum Message {
-    ASR(AssociationSetupRequest),
-    AUR(AssociationUpdateRequest),
-    ARR(AssociationReleaseRequest),
+    ASReq(AssociationSetupRequest),
+    ASResp(AssociationSetupResponse),
+    AUReq(AssociationUpdateRequest),
+    AUResp(AssociationUpdateResponse),
+    ARReq(AssociationReleaseRequest),
+    ARResp(AssociationReleaseResponse),
     //NodeReportResponse,
-    SER(SessionEstablishmentRequest),
-    SMR(SessionModificationRequest),
-    SDR(SessionDeletionRequest),
-    HR(HeartbeatRequest),
+    SEReq(SessionEstablishmentRequest),
+    SEResp(SessionEstablishmentResponse),
+    SMReq(SessionModificationRequest),
+    SMResp(SessionModificationResponse),
+    SDReq(SessionDeletionRequest),
+    SDResp(SessionDeletionResponse),
+    HReq(HeartbeatRequest),
+    HResp(HeartbeatResponse),
 }
 
 impl Message {
@@ -102,7 +111,7 @@ impl Message {
 
     pub fn pack(self) -> Vec<u8> {
         match self {
-            Message::ASR(asr) => asr.pack(),
+            Message::ASReq(asreq) => asreq.pack(),
             //Message::AUR(aur) => aur.pack(),
             //Message::ARR(arr) => arr.pack(),
             //Message::SER(ser) => ser.pack(),
