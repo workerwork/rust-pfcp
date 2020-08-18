@@ -1,12 +1,12 @@
 use super::header::Header;
 use super::*;
 
-use elements::ie_type;
 use elements::create_far::CreateFAR;
 use elements::create_pdr::CreatePDR;
 use elements::create_qer::CreateQER;
 use elements::create_urr::CreateURR;
 use elements::f_seid::FSEID;
+use elements::ie_type;
 use elements::node_id::NodeID;
 use elements::pdn_type::PDNType;
 
@@ -50,24 +50,16 @@ impl SessionEstablishmentRequest {
                     message.pdn_type = PDNType::decode(buf, elen)?;
                 }
                 ie_type::CREATE_PDR => {
-                    message
-                        .create_pdrs
-                        .push(CreatePDR::decode(buf, elen)?);
+                    message.create_pdrs.push(CreatePDR::decode(buf, elen)?);
                 }
                 ie_type::CREATE_FAR => {
-                    message
-                        .create_fars
-                        .push(CreateFAR::decode(buf, elen)?);
+                    message.create_fars.push(CreateFAR::decode(buf, elen)?);
                 }
                 ie_type::CREATE_URR => {
-                    message
-                        .create_urrs
-                        .push(CreateURR::decode(buf, elen)?);
+                    message.create_urrs.push(CreateURR::decode(buf, elen)?);
                 }
                 ie_type::CREATE_QER => {
-                    message
-                        .create_qers
-                        .push(CreateQER::decode(buf, elen)?);
+                    message.create_qers.push(CreateQER::decode(buf, elen)?);
                 }
                 _ => println!(""),
             }

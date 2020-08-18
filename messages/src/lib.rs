@@ -1,19 +1,21 @@
-pub mod association_release_request;
-pub mod association_setup_request;
-pub mod association_update_request;
+pub mod association_release;
+pub mod association_setup;
+pub mod association_update;
 pub mod elements;
 pub mod header;
-pub mod session_deletion_request;
-pub mod session_establishment_request;
-pub mod session_modification_request;
+pub mod heartbeat;
+pub mod session_deletion;
+pub mod session_establishment;
+pub mod session_modification;
 
+use association_release::*;
+use association_setup::*;
+use association_update::*;
 use header::Header;
-use association_release_request::*;
-use association_setup_request::*;
-use association_update_request::*;
-use session_deletion_request::*;
-use session_establishment_request::*;
-use session_modification_request::*;
+use heartbeat::*;
+use session_deletion::*;
+use session_establishment::*;
+use session_modification::*;
 
 //define message type
 pub mod msg_type {
@@ -69,6 +71,7 @@ pub enum Message {
     SER(SessionEstablishmentRequest),
     SMR(SessionModificationRequest),
     SDR(SessionDeletionRequest),
+    HR(HeartbeatRequest),
 }
 
 impl Message {
@@ -80,7 +83,9 @@ impl Message {
             buf = &mut buf[4..];
         }
         match header.msg_t {
-            msg_type::ASSOCIATION_SETUP_REQUEST => AssociationSetupRequest::parse(buf, header).unwrap(),
+            msg_type::ASSOCIATION_SETUP_REQUEST => {
+                AssociationSetupRequest::parse(buf, header).unwrap()
+            }
             //msg_type::ASSOCIATION_UPDATE_REQUEST => AssociationUpdateRequest::parse(buf, header),
             //msg_type::ASSOCIATION_RELEASE_REQUEST => AssociationReleaseRequest::parse(buf, header),
             msg_type::SESSION_ESTABLISHMENT_REQUEST => {
