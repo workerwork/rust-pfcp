@@ -96,12 +96,12 @@ impl Message {
                 AssociationSetupRequest::parse(buf, header).unwrap()
             }
             //msg_type::ASSOCIATION_UPDATE_REQUEST => AssociationUpdateRequest::parse(buf, header),
-            //msg_type::ASSOCIATION_RELEASE_REQUEST => AssociationReleaseRequest::parse(buf, header),
+            msg_type::ASSOCIATION_RELEASE_REQUEST => AssociationReleaseRequest::parse(buf, header).unwrap(),
             msg_type::SESSION_ESTABLISHMENT_REQUEST => {
                 SessionEstablishmentRequest::parse(buf, header).unwrap()
             }
-            //msg_type::SESSION_MODIFICATION_REQUEST => SessionModificationRequest::parse(buf, header),
-            //msg_type::SESSION_DELETION_REQUEST => SessionDeletionRequest::parse(buf, header),
+            msg_type::SESSION_MODIFICATION_REQUEST => SessionModificationRequest::parse(buf, header).unwrap(),
+            msg_type::SESSION_DELETION_REQUEST => SessionDeletionRequest::parse(buf, header).unwrap(),
             _ => {
                 println!("err");
                 AssociationSetupRequest::parse(buf, header).unwrap()
@@ -112,11 +112,17 @@ impl Message {
     pub fn pack(self) -> Vec<u8> {
         match self {
             Message::ASReq(asreq) => asreq.pack(),
-            //Message::AUR(aur) => aur.pack(),
-            //Message::ARR(arr) => arr.pack(),
-            //Message::SER(ser) => ser.pack(),
-            //Message::SMR(smr) => smr.pack(),
-            //Message::SDR(sdr) => sdr.pack(),
+            Message::ASResp(asresp) => asresp.pack(),
+            //Message::AUReq(aureq) => aureq.pack(),
+            //Message::AUResp(aursp) => auresp.pack(),
+            Message::ARReq(arreq) => arreq.pack(),
+            Message::ARResp(arresp) => arresp.pack(),
+            Message::SEReq(sereq) => sereq.pack(),
+            Message::SEResp(seresp) => seresp.pack(),
+            Message::SMReq(smreq) => smreq.pack(),
+            Message::SMResp(smresp) => smresp.pack(),
+            Message::SDReq(sdreq) => sdreq.pack(),
+            Message::SDResp(sdresp) => sdresp.pack(),
             _ => vec![0],
         }
     }
