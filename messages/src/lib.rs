@@ -95,13 +95,19 @@ impl Message {
             msg_type::ASSOCIATION_SETUP_REQUEST => {
                 AssociationSetupRequest::parse(buf, header).unwrap()
             }
-            //msg_type::ASSOCIATION_UPDATE_REQUEST => AssociationUpdateRequest::parse(buf, header),
-            msg_type::ASSOCIATION_RELEASE_REQUEST => AssociationReleaseRequest::parse(buf, header).unwrap(),
-            msg_type::SESSION_ESTABLISHMENT_REQUEST => {
-                SessionEstablishmentRequest::parse(buf, header).unwrap()
+            msg_type::ASSOCIATION_SETUP_RESPONSE => {
+                AssociationSetupResponse::parse(buf, header).unwrap()
             }
+            //msg_type::ASSOCIATION_UPDATE_REQUEST => AssociationUpdateRequest::parse(buf, header),
+            //msg_type::ASSOCIATION_UPDATE_RESPONSE => AssociationUpdateResponse::parse(buf, header),
+            msg_type::ASSOCIATION_RELEASE_REQUEST => AssociationReleaseRequest::parse(buf, header).unwrap(),
+            msg_type::ASSOCIATION_RELEASE_RESPONSE => AssociationReleaseResponse::parse(buf, header).unwrap(),
+            msg_type::SESSION_ESTABLISHMENT_REQUEST => SessionEstablishmentRequest::parse(buf, header).unwrap(),
+            msg_type::SESSION_ESTABLISHMENT_RESPONSE => SessionEstablishmentResponse::parse(buf, header).unwrap(),
             msg_type::SESSION_MODIFICATION_REQUEST => SessionModificationRequest::parse(buf, header).unwrap(),
+            msg_type::SESSION_MODIFICATION_RESPONSE => SessionModificationResponse::parse(buf, header).unwrap(),
             msg_type::SESSION_DELETION_REQUEST => SessionDeletionRequest::parse(buf, header).unwrap(),
+            msg_type::SESSION_DELETION_RESPONSE => SessionDeletionResponse::parse(buf, header).unwrap(),
             _ => {
                 println!("err");
                 AssociationSetupRequest::parse(buf, header).unwrap()
