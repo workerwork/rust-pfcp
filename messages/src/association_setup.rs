@@ -83,6 +83,9 @@ impl AssociationSetupResponse {
                 ie_type::RECOVERY_TIME_STAMP => {
                     message.recovery_time_stamp = RecoveryTimeStamp::decode(buf, elen)?;
                 }
+                ie_type::CAUSE => {
+                    message.cause = Cause::decode(buf, elen)?;
+                }
                 _ => println!("unknown ie_type!"),
             }
             buf = &mut buf[elen.into()..];
